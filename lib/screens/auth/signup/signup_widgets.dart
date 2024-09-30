@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
 
 class UsernameTextfield extends StatelessWidget {
@@ -11,12 +12,11 @@ class UsernameTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
       controller: _usernameController,
       labelText: 'Username',
-      validator: (value) => value == null || value.isEmpty
-          ? "Enter a Username"
-          : null,
+      validator: (value) =>
+          value == null || value.isEmpty ? "Enter a Username" : null,
     );
   }
 }
@@ -31,14 +31,13 @@ class EmailTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
         controller: _emailController,
         labelText: 'EmailId',
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Enter a email address";
-          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-              .hasMatch(value)) {
+          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
             return "Please enter a valid emaid address";
           }
           return null;
@@ -56,7 +55,7 @@ class PhoneTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
         controller: _phoneController,
         labelText: 'Phone',
         validator: (value) {
@@ -80,7 +79,7 @@ class PasswordTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
         controller: _passwordController,
         labelText: 'Password',
         validator: (value) =>

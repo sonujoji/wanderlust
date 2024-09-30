@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +8,6 @@ import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth/login/login_screen.dart';
 import 'package:wanderlust/service/signup_service.dart';
-import 'package:wanderlust/widgets/global/custom_textfield.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -49,9 +49,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (currentUser != null && currentUserIndex != null) {
       currentUser!.profileImage = image.path;
-
       _userService.updateUser(currentUserIndex!, currentUser!);
     }
+  }
+
+  Future<void> editUserDetails() async {
+    currentUser!.email = emailidUpdateController.text;
+    currentUser!.phone = int.parse(phoneUpdateController.text);
+
+    if (currentUser != null && currentUserIndex != null) {
+      await _userService.updateUser(currentUserIndex!, currentUser!);
+
+      var updatedUser = await _userService.getUserByIndex(currentUserIndex!);
+      print('email: ${updatedUser!.email},phone: ${updatedUser.phone}');
+    }
+    setState(() {},
+    );
   }
 
   @override
@@ -98,18 +111,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       setImage(pickedImage);
                     }
                   },
-                  child: currentUser!= null && currentUser!.profileImage != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(70),
-                          child: Image.file(
-                            fit: BoxFit.cover,
-                            File(currentUser!.profileImage!),
-                          ),
-                        )
-                      : const Icon(
-                          Icons.add_a_photo,
-                          size: 30,
-                        ),
+                  child:
+                      currentUser != null && currentUser!.profileImage != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: Image.file(
+                                fit: BoxFit.cover,
+                                File(currentUser!.profileImage!),
+                              ),
+                            )
+                          : const Icon(
+                              Icons.add_a_photo,
+                              size: 30,
+                            ),
                 ),
               ),
               SizedBox(
@@ -117,16 +131,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Text(
                 currentUser?.username ?? 'username',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
               EditprofileTIle(
-                  emailidUpdateController: emailidUpdateController,
-                  screenHeight: screenHeight,
-                  phoneUpdateController: phoneUpdateController),
-              PrivacyListtile(),
+                emailidUpdateController: emailidUpdateController,
+                screenHeight: screenHeight,
+                phoneUpdateController: phoneUpdateController,
+                onSave: editUserDetails,
+              ),
+              const PrivacyListtile(),
               const LogoutTile(),
             ],
           ),

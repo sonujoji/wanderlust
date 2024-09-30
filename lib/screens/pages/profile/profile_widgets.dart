@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/screens/auth/login/login_screen.dart';
 import 'package:wanderlust/utils/colors.dart';
+import 'package:wanderlust/widgets/global/custom_listtile.dart';
+
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
 
 class EmailTextField extends StatelessWidget {
@@ -13,7 +15,7 @@ class EmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
         controller: emailidUpdateController,
         labelText: 'email',
         validator: (value) {
@@ -37,7 +39,7 @@ class PhoneTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextfield(
+    return GlobalTextField(
       controller: phoneUpdateController,
       labelText: 'Phone',
       validator: (value) {
@@ -51,18 +53,20 @@ class PhoneTextfield extends StatelessWidget {
     );
   }
 }
+
 class EditprofileTIle extends StatelessWidget {
   const EditprofileTIle({
     super.key,
     required this.emailidUpdateController,
     required this.screenHeight,
     required this.phoneUpdateController,
+    required this.onSave,
   });
 
   final TextEditingController emailidUpdateController;
   final double screenHeight;
   final TextEditingController phoneUpdateController;
-
+  final VoidCallback onSave;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,14 +86,12 @@ class EditprofileTIle extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           EmailTextField(
-                              emailidUpdateController:
-                                  emailidUpdateController),
+                              emailidUpdateController: emailidUpdateController),
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
                           PhoneTextfield(
-                              phoneUpdateController:
-                                  phoneUpdateController),
+                              phoneUpdateController: phoneUpdateController),
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
@@ -104,34 +106,17 @@ class EditprofileTIle extends StatelessWidget {
                           child: const Text('Cancel',
                               style: TextStyle(color: Colors.white))),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            onSave;
+                            Navigator.pop(context);
+                          },
                           child: const Text('Save',
                               style: TextStyle(color: Colors.white))),
                     ],
                   ));
         },
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: const Color.fromARGB(255, 49, 52, 73)),
-          child: const ListTile(
-            leading: Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Edit Profile',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
-            ),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        child:
+            const CustomListTile(leadingIcon: Icons.edit, text: 'Edit Profile'),
       ),
     );
   }
@@ -151,8 +136,7 @@ class LogoutTile extends StatelessWidget {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    backgroundColor:
-                        const Color.fromARGB(255, 49, 52, 73),
+                    backgroundColor: const Color.fromARGB(255, 49, 52, 73),
                     title: const Text(
                       'Do yo want to logout',
                       style: TextStyle(color: Colors.white),
@@ -172,8 +156,7 @@ class LogoutTile extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LogInScreen()),
+                                    builder: (context) => const LogInScreen()),
                                 (Route<dynamic> route) => false);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
@@ -189,32 +172,13 @@ class LogoutTile extends StatelessWidget {
                     ],
                   ));
         },
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: const Color.fromARGB(255, 49, 52, 73)),
-          child: const ListTile(
-            leading: Icon(
-              Icons.logout_rounded,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Logout',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
-            ),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        child: const CustomListTile(
+            leadingIcon: Icons.logout_rounded, text: 'Logout'),
       ),
     );
   }
 }
+
 class PrivacyListtile extends StatelessWidget {
   const PrivacyListtile({
     super.key,
@@ -225,33 +189,9 @@ class PrivacyListtile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
       child: GestureDetector(
-        onTap: () {
-          
-        },
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: const Color.fromARGB(255, 49, 52, 73)),
-          child: const ListTile(
-            leading: Icon(
-              Icons.lock,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Privacy Policy',
-              style: TextStyle(
-                  color: Colors.white,
-                  // Color.fromARGB(255, 27, 26, 26),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
-            ),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+          onTap: () {},
+          child: const CustomListTile(
+              leadingIcon: Icons.lock, text: 'Privacy Policy')),
     );
   }
 }
