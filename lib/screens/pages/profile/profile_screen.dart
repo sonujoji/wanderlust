@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'dart:math';
+//import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,8 +18,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController emailidUpdateController = TextEditingController();
-  TextEditingController phoneUpdateController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   UserService _userService = UserService();
@@ -33,8 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         currentUser = users.last;
         currentUserIndex = users.length - 1;
-        emailidUpdateController.text = currentUser!.email;
-        phoneUpdateController.text = currentUser!.phone.toString();
+        emailController.text = currentUser!.email;
+        phoneController.text = currentUser!.phone.toString();
         if (currentUser!.profileImage != null) {
           _selectedImage = File(currentUser!.profileImage!);
         }
@@ -54,17 +55,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> editUserDetails() async {
-    currentUser!.email = emailidUpdateController.text;
-    currentUser!.phone = int.parse(phoneUpdateController.text);
-
+    currentUser!.email = emailController.text;
+    currentUser!.phone = int.parse(phoneController.text);
+    log('this line is working');
     if (currentUser != null && currentUserIndex != null) {
       await _userService.updateUser(currentUserIndex!, currentUser!);
 
-      var updatedUser = await _userService.getUserByIndex(currentUserIndex!);
-      print('email: ${updatedUser!.email},phone: ${updatedUser.phone}');
+      Navigator.pop(context);
     }
-    setState(() {},
-    );
+    setState(() {});
   }
 
   @override
@@ -137,10 +136,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: screenHeight * 0.02,
               ),
               EditprofileTIle(
-                emailidUpdateController: emailidUpdateController,
+               currentEmailController: emailController,
+               currentPhoneController: phoneController,
                 screenHeight: screenHeight,
-                phoneUpdateController: phoneUpdateController,
-                onSave: editUserDetails,
+                 currentUser: currentUser,
+                 currentUserIndex: currentUserIndex,
+               
+               
               ),
               const PrivacyListtile(),
               const LogoutTile(),

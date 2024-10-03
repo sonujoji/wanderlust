@@ -40,12 +40,12 @@ class UserService {
     await _userBox!.deleteAt(index);
   }
 
-  Future<User?> getUserByIndex(int index) async {
-    if (_userBox == null) {
-      await openBox();
-    }
-    if (index >= 0 && index < _userBox!.length) {
-      return _userBox!.getAt(index);
-    }
-  }
+  // Future<void> getUserByIndex(int index) async {
+  //   if (_userBox == null) {
+  //     await openBox();
+  //   }
+  //   if (index >= 0 && index < _userBox!.length) {
+  //     await _userBox!.getAt(index);
+  //   }
+  // }
 }
