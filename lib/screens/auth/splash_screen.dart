@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanderlust/screens/home/home_screen.dart';
+import 'package:wanderlust/screens/bottom_nav/home_screen.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/screens/auth/welcomeScreen.dart';
 

@@ -11,6 +11,10 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   await UserService().openBox();
 
+  //addTrip adaptor
+  // Hive.registerAdapter(addTripAdapter());
+  // await UserService().openBox();
+
   runApp(const MyApp());
 }
 

@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/auth/login/login_screen.dart';
-import 'package:wanderlust/screens/pages/profile/profile_screen.dart';
+import 'package:wanderlust/screens/auth/login_screen.dart';
+
+import 'package:wanderlust/screens/pages/profile_screen.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/global/custom_listtile.dart';

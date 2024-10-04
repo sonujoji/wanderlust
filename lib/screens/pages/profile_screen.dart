@@ -4,10 +4,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wanderlust/screens/pages/profile/profile_widgets.dart';
+import 'package:wanderlust/screens/pages/page_widgets/profile_widgets.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/auth/login/login_screen.dart';
+
 import 'package:wanderlust/service/signup_service.dart';
 
 class ProfileScreen extends StatefulWidget {

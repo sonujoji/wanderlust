@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/utils/colors.dart';
 
-class AddtripScreen extends StatefulWidget {
-  const AddtripScreen({super.key});
+class TripDetailsScreen extends StatefulWidget {
+  const TripDetailsScreen({super.key});
 
   @override
-  State<AddtripScreen> createState() => _AddtripScreenState();
+  State<TripDetailsScreen> createState() => _TripDetailsScreenState();
 }
 
-class _AddtripScreenState extends State<AddtripScreen> {
+class _TripDetailsScreenState extends State<TripDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class _AddtripScreenState extends State<AddtripScreen> {
           backgroundColor: primaryColor,
           centerTitle: true,
           title: Text(
-            'Add Trip',
+            'Trips Stats',
             style: TextStyle(
               fontSize: 28,
               color: Colors.white,
@@ -27,7 +27,7 @@ class _AddtripScreenState extends State<AddtripScreen> {
         ),
         body: Center(
           child: Text(
-            'add trip',
+            'Trip details',
             style: TextStyle(color: Colors.white, fontSize: 25),
           ),
         ));

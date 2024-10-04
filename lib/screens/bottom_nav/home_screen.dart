@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:wanderlust/screens/pages/trip_details.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/pages/addtrip_screen.dart';
 import 'package:wanderlust/screens/pages/favtrips_screen.dart';
 import 'package:wanderlust/screens/pages/homepage_screen.dart';
-import 'package:wanderlust/screens/pages/profile/profile_screen.dart';
+import 'package:wanderlust/screens/pages/profile_screen.dart';
 import 'package:wanderlust/service/signup_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,14 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> pages = const [
     HomepageScreen(),
-    AddtripScreen(),
+    TripDetailsScreen(),
     FavtripsScreen(),
     ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-   // double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: primaryColor,
@@ -55,11 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GButton(
                   icon: Icons.map,
-                  text: 'Plan Trip',
+                  text: 'Trip Details',
                 ),
                 GButton(
                   icon: Icons.favorite,
-                  text: 'Liked',
+                  text: 'Favorite',
                 ),
                 GButton(
                   icon: Icons.person,
