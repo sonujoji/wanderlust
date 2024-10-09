@@ -7,6 +7,7 @@ class GlobalTextField extends StatelessWidget {
   final int? maxLines;
   final bool? expand;
   final IconData? prefixIcon;
+  final TextInputType keyboardType;
 
   // ignore: use_key_in_widget_constructors
   const GlobalTextField({
@@ -16,6 +17,7 @@ class GlobalTextField extends StatelessWidget {
     this.expand,
     this.validator,
     this.prefixIcon,
+    this.keyboardType = TextInputType.text,
   });
 
   @override
@@ -25,6 +27,7 @@ class GlobalTextField extends StatelessWidget {
       expands: false,
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue)),

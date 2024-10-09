@@ -33,7 +33,7 @@ class _EditprofileTIleState extends State<EditprofileTIle> {
   late TextEditingController emailUpdateController;
   late TextEditingController phoneUpdateController;
 
-  UserService _userService = UserService();
+  final UserService _userService = UserService();
 
   @override
   void initState() {
@@ -129,7 +129,7 @@ class _EditprofileTIleState extends State<EditprofileTIle> {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ProfileScreen(),
+                                  builder: (context) => const ProfileScreen(),
                                 ),
                                 (Route<dynamic> route) => false,
                               );

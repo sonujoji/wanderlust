@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wanderlust/screens/pages/trip_details.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/pages/favtrips_screen.dart';
 import 'package:wanderlust/screens/pages/homepage_screen.dart';
 import 'package:wanderlust/screens/pages/profile_screen.dart';
-import 'package:wanderlust/service/signup_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

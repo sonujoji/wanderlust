@@ -69,11 +69,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         horizontal: 80, vertical: 7)),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => SignUpScreen()));
+                      MaterialPageRoute(builder: (context) => const SignUpScreen()));
                 },
                 child: const Text(
                   'Get Started ',
-                  style: const TextStyle(color: Colors.white, fontSize: 24),
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
               Row(
@@ -89,7 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => LogInScreen()));
+                          builder: (context) => const LogInScreen()));
                     },
                     child: const Text(
                       'Log In',

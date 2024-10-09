@@ -83,7 +83,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     },
                     child: const Text(
                       'Log in',
-                      style: const TextStyle(color: Colors.white, fontSize: 24),
+                      style: TextStyle(color: Colors.white, fontSize: 24),
                     ),
                   ),
                   Row(

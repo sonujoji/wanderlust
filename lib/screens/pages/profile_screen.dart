@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  UserService _userService = UserService();
+  final UserService _userService = UserService();
   User? currentUser;
   int? currentUserIndex;
   File? _selectedImage;
@@ -130,19 +130,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Text(
                 currentUser?.username ?? 'username',
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
               EditprofileTIle(
-               currentEmailController: emailController,
-               currentPhoneController: phoneController,
+                currentEmailController: emailController,
+                currentPhoneController: phoneController,
                 screenHeight: screenHeight,
-                 currentUser: currentUser,
-                 currentUserIndex: currentUserIndex,
-               
-               
+                currentUser: currentUser,
+                currentUserIndex: currentUserIndex,
               ),
               const PrivacyListtile(),
               const LogoutTile(),

@@ -16,7 +16,7 @@ class _FavtripsScreenState extends State<FavtripsScreen> {
         appBar: AppBar(
           backgroundColor: primaryColor,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Favorite Trips',
             style: TextStyle(
               fontSize: 28,
@@ -25,7 +25,7 @@ class _FavtripsScreenState extends State<FavtripsScreen> {
             ),
           ),
         ),
-        body: Center(
+        body: const Center(
           child: Text(
             'fav trips',
             style: TextStyle(color: Colors.white, fontSize: 25),

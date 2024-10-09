@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/addTrip_textField.dart';
-import 'package:wanderlust/widgets/global/custom_button.dart';
+import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
+import 'package:wanderlust/service/trip_service.dart';
 
 class AddTripPage extends StatefulWidget {
   const AddTripPage({super.key});
@@ -13,14 +17,22 @@ class AddTripPage extends StatefulWidget {
 
 class _AddTripPageState extends State<AddTripPage> {
   final TextEditingController titleController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController budgetController = TextEditingController();
+  final TripService _tripService = TripService();
+  double currentSliderValue = 1;
+  File? selectedImage;
   DateTimeRange dateRange = DateTimeRange(
     start: DateTime.now(),
     end: DateTime.now(),
   );
 
-  double currentSliderValue = 1;
+  void setImage(File image) {
+    setState(() {
+      selectedImage = image;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +40,37 @@ class _AddTripPageState extends State<AddTripPage> {
     final end = dateRange.end;
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.close,
-              color: Colors.white,
-            )),
-        backgroundColor: primaryColor,
-        title: const Text(
-          'Add new trip',
-          style: TextStyle(
-              color: Colors.white, fontSize: 26, fontWeight: FontWeight.w500),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: AppBar(
+          actions: [
+            TextButton(
+                onPressed: () {
+                  createNewTrip();
+                },
+                style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                child: const Text(
+                  'Add Trip',
+                  style: TextStyle(color: Colors.white),
+                )),
+            const SizedBox(width: 10),
+          ],
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.close,
+                color: Colors.white,
+              )),
+          backgroundColor: primaryColor,
+          title: const Text(
+            'Create Trip',
+            style: TextStyle(
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -52,9 +79,14 @@ class _AddTripPageState extends State<AddTripPage> {
             const SizedBox(height: 15),
             GlobalTextField(
               controller: titleController,
-              labelText: 'Title',
-              prefixIcon: Icons.title_outlined,
+              labelText: 'Place',
+              prefixIcon: Icons.place_outlined,
             ),
+            const SizedBox(height: 15),
+            GlobalTextField(
+                controller: countryController,
+                labelText: 'Country',
+                prefixIcon: Icons.flag),
             const SizedBox(height: 15),
             SizedBox(
               height: 80,
@@ -68,9 +100,11 @@ class _AddTripPageState extends State<AddTripPage> {
             ),
             const SizedBox(height: 15),
             GlobalTextField(
-                prefixIcon: Icons.currency_rupee,
-                controller: budgetController,
-                labelText: 'Budget'),
+              prefixIcon: Icons.currency_rupee,
+              controller: budgetController,
+              labelText: 'Budget',
+              keyboardType: TextInputType.phone,
+            ),
             const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +198,9 @@ class _AddTripPageState extends State<AddTripPage> {
                         height: 20,
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                        
+                        },
                         label: const Text(
                           'Pick Companion',
                           style: TextStyle(color: Colors.white),
@@ -175,12 +211,107 @@ class _AddTripPageState extends State<AddTripPage> {
                     ],
                   )
                 : const SizedBox.shrink(),
-            const SizedBox(height: 30),
-            CustomElevatedButton(text: 'Add trip', onPressed: () {})
+            const SizedBox(height: 20),
+            const Row(
+              children: [
+                Icon(
+                  Icons.image,
+                  color: Colors.blue,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Add image of your destination',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () async {
+                  File? pickedImage = await pickImage();
+                  if (pickedImage != null) {
+                    setImage(pickedImage);
+                  }
+                },
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: selectedImage != null
+                      ? ClipRRect(
+                          child: Image.file(selectedImage!, fit: BoxFit.cover),
+                        )
+                      : const Icon(
+                          Icons.add_photo_alternate,
+                          color: Colors.blue,
+                          size: 40,
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> createNewTrip() async {
+    if (titleController.text.isEmpty ||
+        descController.text.isEmpty ||
+        budgetController.text.isEmpty ||
+        countryController.text.isEmpty ||
+        dateRange.end == DateTime.now() ||
+        currentSliderValue < 1) {
+      customSnackBar(context, 'Please fill all the fields');
+      return;
+    }
+
+    if (dateRange.end == DateTime.now()) {
+      customSnackBar(context, 'Select the trip dates');
+      return;
+    }
+    if (currentSliderValue < 1) {
+      customSnackBar(context, 'Select the number of travellors');
+      return;
+    }
+    if (selectedImage?.path == null) {
+      customSnackBar(context, 'Add an image for your trip');
+      return;
+    }
+
+    String budgetText = budgetController.text.trim();
+    if (budgetText.isEmpty || int.tryParse(budgetText) == null) {
+      customSnackBar(context, 'Please enter a valid budget');
+      return;
+    }
+
+    int budget = int.parse(budgetText);
+
+    final newTrip = Trip(
+      title: titleController.text,
+      description: descController.text,
+      budget: budget,
+      startDate: dateRange.start,
+      endDate: dateRange.end,
+      travellorCount: currentSliderValue.round(),
+      country: countryController.text,
+      destinationImage: selectedImage?.path,
+    );
+    await _tripService.addTrip(newTrip);
+
+    print(newTrip.country);
+    print(newTrip.destinationImage);
+
+    customSnackBar(context, 'Trip added succesfully');
+
+    tripListNotifier.value = [...tripListNotifier.value];
+
+    Navigator.pop(context);
   }
 
   Future pickDateRange() async {
@@ -195,5 +326,14 @@ class _AddTripPageState extends State<AddTripPage> {
       return;
     }
     setState(() => dateRange = newDateRange);
+  }
+
+  Future<File?> pickImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+    return null;
   }
 }

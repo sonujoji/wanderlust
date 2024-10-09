@@ -15,6 +15,7 @@ class UsernameTextfield extends StatelessWidget {
     return GlobalTextField(
       controller: _usernameController,
       labelText: 'Username',
+      prefixIcon: Icons.person,
       validator: (value) =>
           value == null || value.isEmpty ? "Enter a Username" : null,
     );
@@ -34,6 +35,7 @@ class EmailTextfield extends StatelessWidget {
     return GlobalTextField(
         controller: _emailController,
         labelText: 'EmailId',
+        prefixIcon: Icons.email,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Enter a email address";
@@ -58,6 +60,8 @@ class PhoneTextfield extends StatelessWidget {
     return GlobalTextField(
         controller: _phoneController,
         labelText: 'Phone',
+        prefixIcon: Icons.phone,
+        keyboardType: TextInputType.phone,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Enter phone number';
@@ -81,6 +85,7 @@ class PasswordTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalTextField(
         controller: _passwordController,
+        prefixIcon: Icons.lock,
         labelText: 'Password',
         validator: (value) =>
             value == null || value.isEmpty ? 'Enter password' : null);

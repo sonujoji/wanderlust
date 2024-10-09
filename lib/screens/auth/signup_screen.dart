@@ -56,6 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   UsernameTextfield(
                     usernameController: _usernameController,
+                    
                   ),
                   SizedBox(
                     height: screenHeight * 0.012,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/utils/colors.dart';
+import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class TripDetailsScreen extends StatefulWidget {
   const TripDetailsScreen({super.key});
@@ -16,7 +17,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         appBar: AppBar(
           backgroundColor: primaryColor,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Trips Stats',
             style: TextStyle(
               fontSize: 28,
@@ -25,11 +26,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
             ),
           ),
         ),
-        body: Center(
-          child: Text(
-            'Trip details',
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-        ));
+        body: const EmptyDialogue(
+            imagePath: 'assets/images/Traveling-rafiki.png',
+            text: "You haven't completed any trips "));
   }
 }
