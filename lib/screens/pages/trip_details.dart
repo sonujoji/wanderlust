@@ -18,7 +18,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
           backgroundColor: primaryColor,
           centerTitle: true,
           title: const Text(
-            'Trips Stats',
+            'Completed Trips',
             style: TextStyle(
               fontSize: 28,
               color: Colors.white,
@@ -28,6 +28,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         ),
         body: const EmptyDialogue(
             imagePath: 'assets/images/Traveling-rafiki.png',
-            text: "You haven't completed any trips "));
+            text: "You haven't completed any trips "),
+            );
   }
 }

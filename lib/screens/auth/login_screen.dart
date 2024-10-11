@@ -1,12 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanderlust/screens/auth/auth_widgets/signup_widgets.dart';
-import 'package:wanderlust/screens/bottom_nav/home_screen.dart';
-import 'package:wanderlust/screens/pages/homepage_screen.dart';
+import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth/signup_screen.dart';

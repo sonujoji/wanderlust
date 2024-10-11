@@ -34,6 +34,7 @@ class _AddTripPageState extends State<AddTripPage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     final start = dateRange.start;
@@ -198,9 +199,7 @@ class _AddTripPageState extends State<AddTripPage> {
                         height: 20,
                       ),
                       TextButton.icon(
-                        onPressed: () {
-                        
-                        },
+                        onPressed: () {},
                         label: const Text(
                           'Pick Companion',
                           style: TextStyle(color: Colors.white),
@@ -300,7 +299,7 @@ class _AddTripPageState extends State<AddTripPage> {
       endDate: dateRange.end,
       travellorCount: currentSliderValue.round(),
       country: countryController.text,
-      destinationImage: selectedImage?.path,
+      destinationImage: selectedImage!.path,
     );
     await _tripService.addTrip(newTrip);
 

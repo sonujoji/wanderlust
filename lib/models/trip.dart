@@ -29,7 +29,10 @@ class Trip extends HiveObject {
   late String? country;
 
   @HiveField(8)
-  late String? destinationImage;
+  late String destinationImage;
+
+  @HiveField(9)
+  late List<String>? travellors;
 
   Trip({
     this.id,
@@ -40,6 +43,7 @@ class Trip extends HiveObject {
     required this.endDate,
     required this.travellorCount,
     required this.country,
-     this.destinationImage,
+    required this.destinationImage,
+    this.travellors,
   });
 }

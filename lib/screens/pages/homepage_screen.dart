@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/screens/pages/add_screens/add_trip.dart';
+import 'package:wanderlust/widgets/feature/trip_screens/add_trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:intl/intl.dart';
@@ -26,6 +27,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController travellorsController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
+  File? updatedImage;
   @override
   void initState() {
     super.initState();
@@ -95,127 +97,325 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       SlidableAction(
                                         onPressed: (context) {
                                           //edit dialogue
+                                          placeController.text = trip.title;
+                                          countryController.text =
+                                              trip.country!;
+                                          descriptionController.text =
+                                              trip.description;
+                                          budgetController.text =
+                                              trip.budget.toString();
+                                          travellorsController.text =
+                                              trip.travellorCount.toString();
+                                          updatedImage =
+                                              File(trip.destinationImage);
+                                          DateTimeRange dateRange =
+                                              DateTimeRange(
+                                            start: trip.startDate,
+                                            end: trip.endDate,
+                                          );
+
                                           showDialog(
                                             context: context,
                                             builder: (context) {
-                                              return AlertDialog(
-                                                backgroundColor: primaryColor,
-                                                title: const Text(
-                                                  'Edit Trip Details',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                                content: SingleChildScrollView(
-                                                  child: Column(
-                                                    children: [
-                                                      GlobalTextField(
-                                                        controller:
-                                                            placeController,
-                                                        labelText: 'Place',
-                                                        prefixIcon: Icons.place,
+                                              return StatefulBuilder(
+                                                builder: (context, setState) {
+                                                  return AlertDialog(
+                                                    backgroundColor:
+                                                        primaryColor,
+                                                    title: const Text(
+                                                      'Edit Trip Details',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        children: [
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          GlobalTextField(
+                                                            controller:
+                                                                placeController,
+                                                            labelText: 'Place',
+                                                            prefixIcon:
+                                                                Icons.place,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          GlobalTextField(
+                                                            controller:
+                                                                countryController,
+                                                            labelText:
+                                                                'Country',
+                                                            prefixIcon:
+                                                                Icons.flag,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          GlobalTextField(
+                                                            controller:
+                                                                descriptionController,
+                                                            labelText:
+                                                                'Description',
+                                                            maxLines: 3,
+                                                            prefixIcon: Icons
+                                                                .description,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          GlobalTextField(
+                                                            controller:
+                                                                budgetController,
+                                                            labelText: 'Budget',
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            prefixIcon:
+                                                                Icons.money,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          GlobalTextField(
+                                                            controller:
+                                                                travellorsController,
+                                                            labelText:
+                                                                'No of Travelers',
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            prefixIcon:
+                                                                Icons.group,
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          const Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .date_range_outlined,
+                                                                color:
+                                                                    Colors.blue,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 5),
+                                                              Text(
+                                                                'Select the dates',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 5),
+                                                          Row(
+                                                            children: [
+                                                              const SizedBox(
+                                                                  width: 5),
+                                                              TextButton(
+                                                                onPressed:
+                                                                    () async {
+                                                                  DateTimeRange?
+                                                                      newDateRange =
+                                                                      await showDateRangePicker(
+                                                                    context:
+                                                                        context,
+                                                                    initialDateRange:
+                                                                        dateRange,
+                                                                    firstDate:
+                                                                        DateTime(
+                                                                            2024),
+                                                                    lastDate:
+                                                                        DateTime(
+                                                                            2050),
+                                                                  );
+
+                                                                  if (newDateRange ==
+                                                                      null) {
+                                                                    return;
+                                                                  }
+                                                                  setState(() =>
+                                                                      dateRange =
+                                                                          newDateRange);
+                                                                },
+                                                                style: TextButton
+                                                                    .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors.white),
+                                                                child: Text(
+                                                                  '${DateFormat('dd-MM-yyyy').format(dateRange.start)}',
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 10),
+                                                              TextButton(
+                                                                onPressed:
+                                                                    () async {
+                                                                  DateTimeRange?
+                                                                      newDateRange =
+                                                                      await showDateRangePicker(
+                                                                    context:
+                                                                        context,
+                                                                    initialDateRange:
+                                                                        dateRange,
+                                                                    firstDate:
+                                                                        DateTime(
+                                                                            2024),
+                                                                    lastDate:
+                                                                        DateTime(
+                                                                            2050),
+                                                                  );
+
+                                                                  if (newDateRange ==
+                                                                      null) {
+                                                                    return;
+                                                                  }
+                                                                  setState(() =>
+                                                                      dateRange =
+                                                                          newDateRange);
+                                                                },
+                                                                style: TextButton
+                                                                    .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors.white),
+                                                                child: Text(
+                                                                  '${DateFormat('dd-MM-yyyy').format(dateRange.end)}',
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Container(
+                                                            height: 110,
+                                                            width: double
+                                                                .maxFinite,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  primaryColor,
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .white),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                            ),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () async {
+                                                                final pickedFile =
+                                                                    await ImagePicker()
+                                                                        .pickImage(
+                                                                            source:
+                                                                                ImageSource.gallery);
+                                                                setState(() {
+                                                                  updatedImage =
+                                                                      File(pickedFile!
+                                                                          .path);
+                                                                });
+                                                              },
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                child: updatedImage !=
+                                                                        null
+                                                                    ? Image
+                                                                        .file(
+                                                                        updatedImage!,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      )
+                                                                    : const Center(
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .add_photo_alternate,
+                                                                          color:
+                                                                              Colors.blue,
+                                                                          size:
+                                                                              40,
+                                                                        ),
+                                                                      ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      GlobalTextField(
-                                                        controller:
-                                                            countryController,
-                                                        labelText: 'Country',
-                                                        prefixIcon: Icons.flag,
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      GlobalTextField(
-                                                        controller:
-                                                            descriptionController,
-                                                        labelText:
-                                                            'Description',
-                                                        maxLines: 3,
-                                                        prefixIcon:
-                                                            Icons.description,
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      GlobalTextField(
-                                                        controller:
-                                                            budgetController,
-                                                        labelText: 'Budget',
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        prefixIcon: Icons.money,
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      GlobalTextField(
-                                                        controller:
-                                                            travellorsController,
-                                                        labelText:
-                                                            'No of Travelers',
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        prefixIcon: Icons.group,
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      Container(
-                                                        height: 110,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: primaryColor,
-                                                          border: Border.all(
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
                                                               color:
                                                                   Colors.white),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
                                                         ),
-                                                        child:
-                                                            // selectedImage != null
-                                                            //     ? ClipRRect(
-                                                            //         borderRadius: BorderRadius.circular(5),
-                                                            //         child: Image.file(
-                                                            //           selectedImage!,
-                                                            //           fit: BoxFit.cover,
-                                                            //         ),
-                                                            //       )
-                                                            //     :
-                                                            const Center(
-                                                          child: Icon(
-                                                            Icons
-                                                                .add_photo_alternate,
-                                                            color: Colors.blue,
-                                                            size: 40,
-                                                          ),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () async {
+                                                          final updatedTrip =
+                                                              Trip(
+                                                            title:
+                                                                placeController
+                                                                    .text,
+                                                            description:
+                                                                descriptionController
+                                                                    .text,
+                                                            budget: int.parse(
+                                                                budgetController
+                                                                    .text),
+                                                            startDate:
+                                                                dateRange.start,
+                                                            endDate:
+                                                                dateRange.end,
+                                                            travellorCount:
+                                                                int.parse(
+                                                                    travellorsController
+                                                                        .text),
+                                                            country:
+                                                                countryController
+                                                                    .text,
+                                                            destinationImage:
+                                                                updatedImage!
+                                                                    .path,
+                                                          );
+                                                          await _tripService
+                                                              .updateTrip(index,
+                                                                  updatedTrip);
+                                                          Navigator.pop(
+                                                              context);
+                                                          customSnackBar(
+                                                              context,
+                                                              'Trip updated succesfully');
+                                                          
+                                                        },
+                                                        child: const Text(
+                                                          'Update Trip',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       ),
                                                     ],
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      'Cancel',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      'Update Trip',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                ],
+                                                  );
+                                                },
                                               );
                                             },
                                           );
@@ -281,8 +481,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                     ]),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 64, 66, 86),
+                                    color: grey,
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Column(
@@ -290,7 +489,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
                                         child: Image.file(
-                                          File(trip.destinationImage!),
+                                          File(trip.destinationImage),
                                           fit: BoxFit.cover,
                                           height: 180,
                                           width: double.infinity,

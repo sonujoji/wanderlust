@@ -29,7 +29,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   build_runner: ^2.4.12
-  contacts_service: ^0.6.3
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter

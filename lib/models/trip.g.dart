@@ -25,14 +25,15 @@ class TripAdapter extends TypeAdapter<Trip> {
       endDate: fields[4] as DateTime,
       travellorCount: fields[5] as int,
       country: fields[7] as String?,
-      destinationImage: fields[8] as String?,
+      destinationImage: fields[8] as String,
+      travellors: (fields[9] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Trip obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class TripAdapter extends TypeAdapter<Trip> {
       ..writeByte(7)
       ..write(obj.country)
       ..writeByte(8)
-      ..write(obj.destinationImage);
+      ..write(obj.destinationImage)
+      ..writeByte(9)
+      ..write(obj.travellors);
   }
 
   @override
