@@ -34,7 +34,6 @@ class _AddTripPageState extends State<AddTripPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     final start = dateRange.start;
@@ -178,38 +177,38 @@ class _AddTripPageState extends State<AddTripPage> {
                     currentSliderValue = value;
                   });
                 }),
-            currentSliderValue > 1
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Row(
-                        children: [
-                          Icon(
-                            Icons.people,
-                            color: Colors.blue,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'Select Companions',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextButton.icon(
-                        onPressed: () {},
-                        label: const Text(
-                          'Pick Companion',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style:
-                            TextButton.styleFrom(backgroundColor: Colors.blue),
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
+            // currentSliderValue > 1
+            //     ? Column(
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           const Row(
+            //             children: [
+            //               Icon(
+            //                 Icons.people,
+            //                 color: Colors.blue,
+            //               ),
+            //               SizedBox(width: 5),
+            //               Text(
+            //                 'Select Companions',
+            //                 style: TextStyle(color: Colors.white, fontSize: 16),
+            //               ),
+            //             ],
+            //           ),
+            //           const SizedBox(
+            //             height: 20,
+            //           ),
+            //           TextButton.icon(
+            //             onPressed: () {},
+            //             label: const Text(
+            //               'Pick Companion',
+            //               style: TextStyle(color: Colors.white),
+            //             ),
+            //             style:
+            //                 TextButton.styleFrom(backgroundColor: Colors.blue),
+            //           ),
+            //         ],
+            //       )
+            //     : const SizedBox.shrink(),
             const SizedBox(height: 20),
             const Row(
               children: [
