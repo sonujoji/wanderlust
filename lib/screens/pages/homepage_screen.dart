@@ -8,6 +8,7 @@ import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/delete_trip_dialogue.dart';
+import 'package:wanderlust/widgets/feature/trip_details_widget/edit_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trips.dart';
 import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
@@ -22,17 +23,33 @@ class HomepageScreen extends StatefulWidget {
 }
 
 class _HomepageScreenState extends State<HomepageScreen> {
+  late TextEditingController placeController;
+  late TextEditingController countryController;
+  late TextEditingController descriptionController;
+  late TextEditingController travellorsController;
+  late TextEditingController budgetController;
+
   final TripService _tripService = TripService();
-  TextEditingController placeController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController travellorsController = TextEditingController();
-  TextEditingController budgetController = TextEditingController();
   File? updatedImage;
   @override
   void initState() {
     super.initState();
+    placeController = TextEditingController();
+    countryController = TextEditingController();
+    descriptionController = TextEditingController();
+    travellorsController = TextEditingController();
+    budgetController = TextEditingController();
     _tripService.getTripDetails();
+  }
+
+  @override
+  void dispose() {
+    placeController.dispose();
+    countryController.dispose();
+    descriptionController.dispose();
+    travellorsController.dispose();
+    budgetController.dispose();
+    super.dispose();
   }
 
   @override
@@ -87,7 +104,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           itemCount: trips.length,
                           itemBuilder: (context, index) {
                             final trip = trips[index];
-                            return Padding(
+                            return Padding( 
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Slidable(
                                 endActionPane: ActionPane(
@@ -96,316 +113,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       SlidableAction(
                                         onPressed: (context) {
                                           //edit dialogue
-                                          placeController.text = trip.title;
-                                          countryController.text =
-                                              trip.country!;
-                                          descriptionController.text =
-                                              trip.description;
-                                          budgetController.text =
-                                              trip.budget.toString();
-                                          travellorsController.text =
-                                              trip.travellorCount.toString();
-                                          updatedImage =
-                                              File(trip.destinationImage);
-                                          DateTimeRange dateRange =
-                                              DateTimeRange(
-                                            start: trip.startDate,
-                                            end: trip.endDate,
-                                          );
-
                                           showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return StatefulBuilder(
-                                                builder: (context, setState) {
-                                                  return AlertDialog(
-                                                    backgroundColor:
-                                                        primaryColor,
-                                                    title: const CustomText(
-                                                        text:
-                                                            'Edit Trip Details'),
-                                                    content:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        children: [
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          GlobalTextField(
-                                                            controller:
-                                                                placeController,
-                                                            labelText: 'Place',
-                                                            prefixIcon:
-                                                                Icons.place,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          GlobalTextField(
-                                                            controller:
-                                                                countryController,
-                                                            labelText:
-                                                                'Country',
-                                                            prefixIcon:
-                                                                Icons.flag,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          GlobalTextField(
-                                                            controller:
-                                                                descriptionController,
-                                                            labelText:
-                                                                'Description',
-                                                            maxLines: 3,
-                                                            prefixIcon: Icons
-                                                                .description,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          GlobalTextField(
-                                                            controller:
-                                                                budgetController,
-                                                            labelText: 'Budget',
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            prefixIcon:
-                                                                Icons.money,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          GlobalTextField(
-                                                            controller:
-                                                                travellorsController,
-                                                            labelText:
-                                                                'No of Travelers',
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            prefixIcon:
-                                                                Icons.group,
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          const Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .date_range_outlined,
-                                                                color: blue,
-                                                              ),
-                                                              SizedBox(
-                                                                  width: 5),
-                                                              CustomText(
-                                                                  text:
-                                                                      'Select the dates',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 5),
-                                                          Row(
-                                                            children: [
-                                                              const SizedBox(
-                                                                  width: 5),
-                                                              TextButton(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    DateTimeRange?
-                                                                        newDateRange =
-                                                                        await showDateRangePicker(
-                                                                      context:
-                                                                          context,
-                                                                      initialDateRange:
-                                                                          dateRange,
-                                                                      firstDate:
-                                                                          DateTime(
-                                                                              2024),
-                                                                      lastDate:
-                                                                          DateTime(
-                                                                              2050),
-                                                                    );
-
-                                                                    if (newDateRange ==
-                                                                        null) {
-                                                                      return;
-                                                                    }
-                                                                    setState(() =>
-                                                                        dateRange =
-                                                                            newDateRange);
-                                                                  },
-                                                                  style: TextButton.styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .white),
-                                                                  child:
-                                                                      CustomText(
-                                                                    text:
-                                                                        '${DateFormat('dd-MM-yyyy').format(dateRange.start)}',
-                                                                    color: blue,
-                                                                  )),
-                                                              const SizedBox(
-                                                                  width: 10),
-                                                              TextButton(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    DateTimeRange?
-                                                                        newDateRange =
-                                                                        await showDateRangePicker(
-                                                                      context:
-                                                                          context,
-                                                                      initialDateRange:
-                                                                          dateRange,
-                                                                      firstDate:
-                                                                          DateTime(
-                                                                              2024),
-                                                                      lastDate:
-                                                                          DateTime(
-                                                                              2050),
-                                                                    );
-
-                                                                    if (newDateRange ==
-                                                                        null) {
-                                                                      return;
-                                                                    }
-                                                                    setState(() =>
-                                                                        dateRange =
-                                                                            newDateRange);
-                                                                  },
-                                                                  style: TextButton.styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .white),
-                                                                  child:
-                                                                      CustomText(
-                                                                    text:
-                                                                        '${DateFormat('dd-MM-yyyy').format(dateRange.end)}',
-                                                                    color: Colors
-                                                                        .blue,
-                                                                  ))
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Container(
-                                                            height: 110,
-                                                            width: double
-                                                                .maxFinite,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .white),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
-                                                            ),
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () async {
-                                                                final pickedFile =
-                                                                    await ImagePicker()
-                                                                        .pickImage(
-                                                                            source:
-                                                                                ImageSource.gallery);
-                                                                setState(() {
-                                                                  updatedImage =
-                                                                      File(pickedFile!
-                                                                          .path);
-                                                                });
-                                                              },
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5),
-                                                                child: updatedImage !=
-                                                                        null
-                                                                    ? Image
-                                                                        .file(
-                                                                        updatedImage!,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      )
-                                                                    : const Center(
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .add_photo_alternate,
-                                                                          color:
-                                                                              Colors.blue,
-                                                                          size:
-                                                                              40,
-                                                                        ),
-                                                                      ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    actions: [
-                                                      TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                          child: CustomText(
-                                                              text: 'Cancel')),
-                                                      TextButton(
-                                                          onPressed: () async {
-                                                            final updatedTrip =
-                                                                Trip(
-                                                              title:
-                                                                  placeController
-                                                                      .text,
-                                                              description:
-                                                                  descriptionController
-                                                                      .text,
-                                                              budget: int.parse(
-                                                                  budgetController
-                                                                      .text),
-                                                              startDate:
-                                                                  dateRange
-                                                                      .start,
-                                                              endDate:
-                                                                  dateRange.end,
-                                                              travellorCount:
-                                                                  int.parse(
-                                                                      travellorsController
-                                                                          .text),
-                                                              country:
-                                                                  countryController
-                                                                      .text,
-                                                              destinationImage:
-                                                                  updatedImage!
-                                                                      .path,
-                                                            );
-                                                            await _tripService
-                                                                .updateTrip(
-                                                                    index,
-                                                                    updatedTrip);
-                                                            Navigator.pop(
-                                                                context);
-                                                            customSnackBar(
-                                                                context,
-                                                                'Trip updated succesfully');
-                                                            await _tripService
-                                                                .getTripDetails();
-                                                          },
-                                                          child: const CustomText(
-                                                              text:
-                                                                  'Update Trip')),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          );
+                                              context: context,
+                                              builder: (context) =>
+                                                  EditTripDialog(
+                                                      trip: trip,
+                                                      index: index));
                                         },
                                         backgroundColor: primaryColor,
                                         foregroundColor: Colors.white,
@@ -416,10 +129,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                           showDialog(
                                               context: context,
                                               builder: (context) =>
+                                                  //delete dialogue
                                                   DeleteTripDialogue(
                                                     index: index,
-                                                    onDelete:(index)=> _tripService
-                                                        .deleteTrip(index),
+                                                    onDelete: (index) =>
+                                                        _tripService
+                                                            .deleteTrip(index),
                                                   ));
                                         },
                                         backgroundColor: primaryColor,
@@ -427,7 +142,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                         icon: Icons.delete,
                                       )
                                     ]),
-                                child: ListTrips(trip: trip),
+                                child: ListTrips(trip: trip,index: index,),
                               ),
                             );
                           },

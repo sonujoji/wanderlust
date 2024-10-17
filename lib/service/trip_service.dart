@@ -7,8 +7,14 @@ ValueNotifier<List<Trip>> tripListNotifier = ValueNotifier<List<Trip>>([]);
 class TripService {
   Box<Trip>? _tripBox;
 
+  Future<void> ensureBoxOpen() async {
+    if (_tripBox == null || !_tripBox!.isOpen) {
+      _tripBox = await Hive.openBox('TripBox');
+    }
+  }
+
   Future<void> openBox() async {
-    _tripBox = await Hive.openBox('TripBox');
+    await ensureBoxOpen();
   }
 
   Future<void> closeBox() async {
@@ -16,36 +22,29 @@ class TripService {
   }
 
   Future<void> addTrip(Trip trip) async {
-    if (_tripBox == null) {
-      openBox();
-    }
+    await ensureBoxOpen();
     final id = await _tripBox!.add(trip);
     trip.id = id;
     await _tripBox!.put(id, trip);
+   // tripListNotifier.notifyListeners();
     tripListNotifier.value.add(trip);
   }
 
   Future<List<Trip>> getTripDetails() async {
-    if (_tripBox == null) {
-      await openBox();
-    }
+    await ensureBoxOpen();
     final data = List<Trip>.from(_tripBox!.values);
     tripListNotifier.value = [...data];
     return _tripBox!.values.toList();
   }
 
   Future<void> updateTrip(int index, Trip trip) async {
-    if (_tripBox == null) {
-      await openBox();
-    }
+    await ensureBoxOpen();
 
     await _tripBox!.putAt(index, trip);
   }
 
   Future<void> deleteTrip(int index) async {
-    if (_tripBox == null) {
-      await openBox();
-    }
+    await ensureBoxOpen();
     await _tripBox!.deleteAt(index);
   }
 }

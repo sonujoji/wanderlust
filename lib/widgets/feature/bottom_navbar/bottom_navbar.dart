@@ -30,9 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: primaryColor,
       body: pages[currentIndex],
       bottomNavigationBar: Container(
-        color: primaryColor,
+        decoration:
+            BoxDecoration(color: grey, borderRadius: BorderRadius.circular(50)),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: GNav(
               onTabChange: (value) {
                 setState(() {
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               selectedIndex: currentIndex,
               color: Colors.white,
-              backgroundColor: primaryColor,
+              backgroundColor: Colors.transparent,
               activeColor: Colors.blue,
               gap: screenWidth * 0.015,
               tabBackgroundColor: Colors.grey.shade300,

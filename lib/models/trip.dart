@@ -34,6 +34,9 @@ class Trip extends HiveObject {
   @HiveField(9)
   late List<String>? travellors;
 
+  @HiveField(10)
+  late bool isFavorite;
+
   Trip({
     this.id,
     required this.title,
@@ -45,5 +48,6 @@ class Trip extends HiveObject {
     required this.country,
     required this.destinationImage,
     this.travellors,
+    this.isFavorite = false,
   });
 }

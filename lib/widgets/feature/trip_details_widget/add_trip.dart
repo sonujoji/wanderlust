@@ -16,10 +16,11 @@ class AddTripPage extends StatefulWidget {
 }
 
 class _AddTripPageState extends State<AddTripPage> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
-  final TextEditingController budgetController = TextEditingController();
+  late TextEditingController titleController;
+  late TextEditingController countryController;
+  late TextEditingController descController;
+  late TextEditingController budgetController;
+
   final TripService _tripService = TripService();
   double currentSliderValue = 1;
   File? selectedImage;
@@ -27,6 +28,23 @@ class _AddTripPageState extends State<AddTripPage> {
     start: DateTime.now(),
     end: DateTime.now(),
   );
+  @override
+  void initState() {
+    titleController = TextEditingController();
+    countryController = TextEditingController();
+    descController = TextEditingController();
+    budgetController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descController.dispose();
+    countryController.dispose();
+    budgetController.dispose();
+    super.dispose();
+  }
 
   void setImage(File image) {
     setState(() {
@@ -177,38 +195,6 @@ class _AddTripPageState extends State<AddTripPage> {
                     currentSliderValue = value;
                   });
                 }),
-            // currentSliderValue > 1
-            //     ? Column(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           const Row(
-            //             children: [
-            //               Icon(
-            //                 Icons.people,
-            //                 color: Colors.blue,
-            //               ),
-            //               SizedBox(width: 5),
-            //               Text(
-            //                 'Select Companions',
-            //                 style: TextStyle(color: Colors.white, fontSize: 16),
-            //               ),
-            //             ],
-            //           ),
-            //           const SizedBox(
-            //             height: 20,
-            //           ),
-            //           TextButton.icon(
-            //             onPressed: () {},
-            //             label: const Text(
-            //               'Pick Companion',
-            //               style: TextStyle(color: Colors.white),
-            //             ),
-            //             style:
-            //                 TextButton.styleFrom(backgroundColor: Colors.blue),
-            //           ),
-            //         ],
-            //       )
-            //     : const SizedBox.shrink(),
             const SizedBox(height: 20),
             const Row(
               children: [
