@@ -7,11 +7,18 @@ import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 
-class ListTrips extends StatelessWidget {
+class ListTrips extends StatefulWidget {
   final Trip trip;
   final int index;
-   ListTrips({required this.trip,required this.index, super.key});
+  ListTrips({required this.trip, required this.index, super.key});
+
+  @override
+  State<ListTrips> createState() => _ListTripsState();
+}
+
+class _ListTripsState extends State<ListTrips> {
   TripService _tripService = TripService();
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -25,7 +32,7 @@ class ListTrips extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Image.file(
-                File(trip.destinationImage),
+                File(widget.trip.destinationImage),
                 fit: BoxFit.cover,
                 height: 180,
                 width: double.infinity,
@@ -41,14 +48,14 @@ class ListTrips extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '📍${trip.title}, ${trip.country}',
+                        '📍${widget.trip.title}, ${widget.trip.country}',
                         style: const TextStyle(
                             fontSize: 18,
                             color: Colors.white,
                             fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        '💸 ₹${trip.budget} ',
+                        '💸 ₹${widget.trip.budget} ',
                         style: const TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -60,14 +67,14 @@ class ListTrips extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ' 📅 ${DateFormat('dd-MM-yyyy').format(trip.startDate)} - ${DateFormat('dd-MM-yyyy').format(trip.endDate)}',
+                        ' 📅 ${DateFormat('dd-MM-yyyy').format(widget.trip.startDate)} - ${DateFormat('dd-MM-yyyy').format(widget.trip.endDate)}',
                         style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
                             fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        '👥 ${trip.travellorCount} ',
+                        '👥 ${widget.trip.travellorCount} ',
                         style: const TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -76,7 +83,7 @@ class ListTrips extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    ' 🗺️ ${trip.description}',
+                    ' 🗺️ ${widget.trip.description}',
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.white,
@@ -92,19 +99,17 @@ class ListTrips extends StatelessWidget {
         top: 20,
         right: 20,
         child: LikeButton(
-          isLiked: trip.isFavorite,
+          
+          isLiked: widget.trip.isFavorite,
           onTap: (isLiked) async {
-            trip.isFavorite = !isLiked;
-            await _tripService.updateTrip(index, trip);
+            widget.trip.isFavorite = !isLiked;
+            await _tripService.updateTrip(widget.index, widget.trip);
             await _tripService.getTripDetails();
             return !isLiked;
           },
-          likeBuilder: (bool isLiked) {
-            return Icon(
-              Icons.favorite,
-              color: isLiked ? Colors.red : Colors.white,
-              size: 35,
-            );
+          likeBuilder: (isLiked) {
+            return Icon(isLiked ? Icons.bookmark : Icons.bookmark_border,
+                color: isLiked ? Colors.red : Colors.white);
           },
         ),
       ),

@@ -1,11 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:wanderlust/models/trip.dart';
+import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 
-class FavoriteComponent extends StatelessWidget {
-  const FavoriteComponent({super.key});
+class SavedTripsComponent extends StatefulWidget {
+  final Trip trip;
+  final int index;
+  const SavedTripsComponent({super.key, required this.trip,required this.index});
 
+  @override
+  State<SavedTripsComponent> createState() => _SavedTripsComponentState();
+}
+
+class _SavedTripsComponentState extends State<SavedTripsComponent> {
+  TripService _tripService = TripService();
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -22,8 +34,8 @@ class FavoriteComponent extends StatelessWidget {
             padding: EdgeInsets.all(screenWidth * 0.02),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(screenWidth * 0.04),
-              child: Image.asset(
-                'assets/images/pexels-pixabay-237272.jpg',
+              child: Image.file(
+                File(widget.trip.destinationImage),
                 width: screenWidth * 0.40,
                 height: double.infinity,
                 fit: BoxFit.cover,
@@ -35,29 +47,42 @@ class FavoriteComponent extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: ' Taj Mahal',
+                      text: widget.trip.title,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
                     CustomText(
-                      text: '📍Delhi',
-                      fontSize: 14,
+                      text: widget.trip.country!,
+                      fontSize: 13,
                     ),
                     CustomText(
-                      text: '💸5000',
-                      fontSize: 14,
+                      text: '₹${widget.trip.budget}',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
                   ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: screenWidth * 0.04),
-                  child: const LikeButton(
+                  child: LikeButton(
                     size: 35,
+                    isLiked: widget.trip.isFavorite,
+                    onTap: (isLiked) async {
+                      widget.trip.isFavorite = !isLiked;
+                      await _tripService.updateTrip(widget.index, widget.trip);
+                      await _tripService.getTripDetails();
+                      return !isLiked;
+                    },
+                    likeBuilder: (isLiked) {
+                      return Icon(
+                          isLiked ? Icons.bookmark : Icons.bookmark_border,
+                          color: isLiked ? Colors.red : Colors.white);
+                    },
                   ),
                 )
               ],

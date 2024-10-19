@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wanderlust/screens/pages/trip_details.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/screens/pages/favtrips_screen.dart';
+import 'package:wanderlust/screens/pages/saved_trips.dart';
 import 'package:wanderlust/screens/pages/homepage_screen.dart';
 import 'package:wanderlust/screens/pages/profile_screen.dart';
 
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = const [
     HomepageScreen(),
     TripDetailsScreen(),
-    FavtripsScreen(),
+    SavedTrips(),
     ProfileScreen(),
   ];
 
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: Container(
         decoration:
             BoxDecoration(color: grey, borderRadius: BorderRadius.circular(50)),
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: GNav(
@@ -58,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: 'Trip Details',
                 ),
                 GButton(
-                  icon: Icons.favorite,
-                  text: 'Favorite',
+                  icon: Icons.bookmark,
+                  text: 'Saved',
                 ),
                 GButton(
                   icon: Icons.person,

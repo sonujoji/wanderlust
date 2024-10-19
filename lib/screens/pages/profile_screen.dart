@@ -96,33 +96,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight * 0.03,
+                height: screenHeight * 0.01,
               ),
               Container(
-                width: 120,
-                height: 120,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.blue),
-                child: GestureDetector(
-                  onTap: () async {
-                    File? pickedImage = await pickImageFromGallery();
-                    if (pickedImage != null) {
-                      setImage(pickedImage);
-                    }
-                  },
-                  child:
-                      currentUser != null && currentUser!.profileImage != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(70),
-                              child: Image.file(
-                                fit: BoxFit.cover,
-                                File(currentUser!.profileImage!),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: grey, width: 15)),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: GestureDetector(
+                    onTap: () async {
+                      File? pickedImage = await pickImageFromGallery();
+                      if (pickedImage != null) {
+                        setImage(pickedImage);
+                      }
+                    },
+                    child:
+                        currentUser != null && currentUser!.profileImage != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(70),
+                                child: Image.file(
+                                  fit: BoxFit.cover,
+                                  File(currentUser!.profileImage!),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.add_a_photo,
+                                size: 30,
                               ),
-                            )
-                          : const Icon(
-                              Icons.add_a_photo,
-                              size: 30,
-                            ),
+                  ),
                 ),
               ),
               SizedBox(
@@ -134,9 +140,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: screenHeight * 0.02,
               ),
               EditprofileTIle(
                 currentEmailController: emailController,

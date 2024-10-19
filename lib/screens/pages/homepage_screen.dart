@@ -1,18 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/add_trip.dart';
+import 'package:wanderlust/widgets/feature/floating_action_button/floating_button.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:intl/intl.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/delete_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/edit_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trips.dart';
-import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
-import 'package:wanderlust/widgets/global/custom_textfield.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class HomepageScreen extends StatefulWidget {
@@ -73,16 +69,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             ),
             centerTitle: true,
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddTripPage()));
-            },
-            backgroundColor: Colors.blue,
-            child: const Icon(
-              Icons.add,
-            ),
-          ),
+          floatingActionButton:const FloatingButton(),
           body: trips.isEmpty
               ? const EmptyDialogue(
                   imagePath: 'assets/images/Journey-amico.png',

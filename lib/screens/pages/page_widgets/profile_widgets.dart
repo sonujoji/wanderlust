@@ -44,12 +44,12 @@ class _EditprofileTIleState extends State<EditprofileTIle> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   emailUpdateController.dispose();
-  //   phoneUpdateController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    emailUpdateController.dispose();
+    phoneUpdateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

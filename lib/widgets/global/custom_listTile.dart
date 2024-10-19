@@ -1,4 +1,4 @@
-import  'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
   final IconData leadingIcon;
@@ -24,7 +24,7 @@ class CustomListTile extends StatelessWidget {
         title: Text(
           text,
           style: const TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios,
