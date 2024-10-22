@@ -7,6 +7,7 @@ import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/delete_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/edit_trip_dialogue.dart';
+import 'package:wanderlust/widgets/feature/trip_details_widget/trip_details.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trips.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
@@ -35,7 +36,14 @@ class _HomepageScreenState extends State<HomepageScreen> {
     descriptionController = TextEditingController();
     travellorsController = TextEditingController();
     budgetController = TextEditingController();
-    _tripService.getTripDetails();
+    // _tripService.getTripDetails();
+
+    //fetch trip status
+    _tripService.getTripDetails().then((_) {
+      for (int i = 0; i < tripListNotifier.value.length; i++) {
+        updateTripStatus(tripListNotifier.value[i], i);
+      }
+    });
   }
 
   @override
@@ -52,9 +60,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
   Widget build(BuildContext context) {
     // double screenHeight = MediaQuery.of(context).size.height;
     // double screenWidth = MediaQuery.of(context).size.width;
+
     return ValueListenableBuilder(
       valueListenable: tripListNotifier,
       builder: (BuildContext cxt, List<Trip> trips, Widget? child) {
+        final upcommingTrips =
+            trips.where((trip) => trip.isCompleted == false).toList();
         return Scaffold(
           backgroundColor: primaryColor,
           appBar: AppBar(
@@ -69,8 +80,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
             ),
             centerTitle: true,
           ),
-          floatingActionButton:const FloatingButton(),
-          body: trips.isEmpty
+          floatingActionButton: const FloatingButton(),
+          body: upcommingTrips.isEmpty
               ? const EmptyDialogue(
                   imagePath: 'assets/images/Journey-amico.png',
                   text: "You haven't added any trips")
@@ -88,10 +99,10 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       const SizedBox(height: 10),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: trips.length,
+                          itemCount: upcommingTrips.length,
                           itemBuilder: (context, index) {
-                            final trip = trips[index];
-                            return Padding( 
+                            final trip = upcommingTrips[index];
+                            return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Slidable(
                                 endActionPane: ActionPane(
@@ -129,7 +140,19 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                         icon: Icons.delete,
                                       )
                                     ]),
-                                child: ListTrips(trip: trip,index: index,),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TripDetailsScreen()));
+                                  },
+                                  child: ListTrips(
+                                    trip: trip,
+                                    index: index,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -141,5 +164,19 @@ class _HomepageScreenState extends State<HomepageScreen> {
         );
       },
     );
+  }
+
+  void checkTripStatus(Trip trip) {
+    DateTime currentDate = DateTime.now();
+    if (trip.endDate.isAfter(currentDate)) {
+      trip.isCompleted = false;
+    } else {
+      trip.isCompleted = true;
+    }
+  }
+
+  void updateTripStatus(Trip trip, int index) async {
+    checkTripStatus(trip);
+    await _tripService.updateTrip(index, trip);
   }
 }

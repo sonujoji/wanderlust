@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:wanderlust/screens/pages/trip_details.dart';
+import 'package:wanderlust/screens/pages/completed_trips.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/screens/pages/saved_trips.dart';
-import 'package:wanderlust/screens/pages/homepage_screen.dart';
+import 'package:wanderlust/screens/pages/upcoming_trips.dart';
 import 'package:wanderlust/screens/pages/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> pages = const [
     HomepageScreen(),
-    TripDetailsScreen(),
+    CompletedTripsScreen(),
     SavedTrips(),
     ProfileScreen(),
   ];
@@ -50,12 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(14),
               tabs: const [
                 GButton(
-                  icon: Icons.home,
-                  text: 'Home',
+                  icon: Icons.place,
+                  text: 'Upcoming',
                 ),
                 GButton(
                   icon: Icons.map,
-                  text: 'Trip Details',
+                  text: 'Completed',
                 ),
                 GButton(
                   icon: Icons.bookmark,

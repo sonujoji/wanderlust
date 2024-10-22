@@ -10,17 +10,18 @@ import 'package:wanderlust/utils/colors.dart';
 class ListTrips extends StatefulWidget {
   final Trip trip;
   final int index;
-  ListTrips({required this.trip, required this.index, super.key});
+  const ListTrips({required this.trip, required this.index, super.key});
 
   @override
   State<ListTrips> createState() => _ListTripsState();
 }
 
 class _ListTripsState extends State<ListTrips> {
-  TripService _tripService = TripService();
+  final TripService _tripService = TripService();
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat dateFormat = DateFormat('MMM-dd-yyyy');
     return Stack(children: [
       Container(
         decoration: BoxDecoration(
@@ -67,7 +68,7 @@ class _ListTripsState extends State<ListTrips> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ' 📅 ${DateFormat('dd-MM-yyyy').format(widget.trip.startDate)} - ${DateFormat('dd-MM-yyyy').format(widget.trip.endDate)}',
+                        ' 📅 ${dateFormat.format(widget.trip.startDate)} - ${dateFormat.format(widget.trip.endDate)}',
                         style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
@@ -99,7 +100,6 @@ class _ListTripsState extends State<ListTrips> {
         top: 20,
         right: 20,
         child: LikeButton(
-          
           isLiked: widget.trip.isFavorite,
           onTap: (isLiked) async {
             widget.trip.isFavorite = !isLiked;

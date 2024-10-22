@@ -47,4 +47,5 @@ class TripService {
     await ensureBoxOpen();
     await _tripBox!.deleteAt(index);
   }
+  
 }

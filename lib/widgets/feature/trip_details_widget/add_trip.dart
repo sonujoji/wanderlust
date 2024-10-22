@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanderlust/models/trip.dart';
@@ -28,7 +27,7 @@ class _AddTripPageState extends State<AddTripPage> {
     start: DateTime.now(),
     end: DateTime.now(),
   );
-  @override
+  @override 
   void initState() {
     titleController = TextEditingController();
     countryController = TextEditingController();

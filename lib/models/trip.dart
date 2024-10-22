@@ -37,6 +37,9 @@ class Trip extends HiveObject {
   @HiveField(10)
   late bool isFavorite;
 
+  @HiveField(11)
+  late bool? isCompleted;
+
   Trip({
     this.id,
     required this.title,
@@ -49,5 +52,6 @@ class Trip extends HiveObject {
     required this.destinationImage,
     this.travellors,
     this.isFavorite = false,
+    this.isCompleted,
   });
 }
