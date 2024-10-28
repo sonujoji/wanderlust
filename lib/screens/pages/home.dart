@@ -6,10 +6,10 @@ import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/widgets/feature/floating_action_button/floating_button.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/delete_trip_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/edit_trip_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/trip_details_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trip_tile.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/delete_trip_dialogue.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/edit_trip_dialogue.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/trip_details_page.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/upcoming_trip_tile.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 

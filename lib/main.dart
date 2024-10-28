@@ -13,6 +13,10 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   await UserService().openBox();
 
+  //documents adapter
+  Hive.registerAdapter(DocumentsAdapter());
+  
+
   //addTrip adaptor
   Hive.registerAdapter(TripAdapter());
   await TripService().openBox();

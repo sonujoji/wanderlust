@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/budget_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/documents_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/itenarary_page.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/budget_page.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/documents_page.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/itenarary_page.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 
 class TripDetailsScreen extends StatefulWidget {
@@ -49,7 +49,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
           ),
         ),
         body: TabBarView(
-            children: [ItenararyPage(trip: widget.trip), BudgetPage(trip: widget.trip,), DocumentsPage(trip: widget.trip,)]),
+            children: [ItenararyPage(trip: widget.trip), BudgetPage(trip: widget.trip,), DocumentsPage(tripId: widget.trip.id.toString(),)]),
       ),
     );
   }

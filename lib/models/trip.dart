@@ -56,6 +56,20 @@ class Trip extends HiveObject {
     this.travellors,
     this.isFavorite = false,
     this.isCompleted,
-     Map<String, List<String>>? iteneraries,
-  }) : iteneraries = iteneraries ?? {} ;
+    Map<String, List<String>>? iteneraries,
+  }) : iteneraries = iteneraries ?? {};
+}
+
+@HiveType(typeId: 2)
+class Documents extends HiveObject {
+  @HiveField(0)
+  final List<String> photos;
+
+  @HiveField(1)
+  final String id;
+
+  @HiveField(2)
+  final String tripId;
+
+  Documents({required this.photos, required this.id, required this.tripId});
 }

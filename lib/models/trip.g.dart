@@ -76,3 +76,43 @@ class TripAdapter extends TypeAdapter<Trip> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class DocumentsAdapter extends TypeAdapter<Documents> {
+  @override
+  final int typeId = 2;
+
+  @override
+  Documents read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Documents(
+      photos: (fields[0] as List).cast<String>(),
+      id: fields[1] as String,
+      tripId: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Documents obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.photos)
+      ..writeByte(1)
+      ..write(obj.id)
+      ..writeByte(2)
+      ..write(obj.tripId);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DocumentsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

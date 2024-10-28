@@ -3,7 +3,7 @@ import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/show_dialogues/itenaray_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/animated_container.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/animated_container.dart';
 import 'package:wanderlust/widgets/global/custom_floating_button.dart';
 
 class ItenararyPage extends StatefulWidget {
@@ -53,7 +53,7 @@ class _ItenararyPageState extends State<ItenararyPage> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: (iteneraries != null &&
+                  itemCount: (iteneraries != null && 
                           iteneraries["Day ${selectTab + 1}"] != null)
                       ? iteneraries["Day ${selectTab + 1}"]!.length
                       : 0,

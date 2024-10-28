@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/add_trip.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/add_trip.dart';
 
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:wanderlust/models/trip.dart';
@@ -25,8 +27,9 @@ class TripService {
     await ensureBoxOpen();
     final id = await _tripBox!.add(trip);
     trip.id = id;
+    log('Trip id is ............. ${trip.id}');
     await _tripBox!.put(id, trip);
-   // tripListNotifier.notifyListeners();
+    tripListNotifier.notifyListeners();
     tripListNotifier.value.add(trip);
   }
 
@@ -47,5 +50,4 @@ class TripService {
     await ensureBoxOpen();
     await _tripBox!.deleteAt(index);
   }
-  
 }
