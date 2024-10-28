@@ -40,6 +40,9 @@ class Trip extends HiveObject {
   @HiveField(11)
   late bool? isCompleted;
 
+  @HiveField(12)
+  Map<String, List<String>> iteneraries = {};
+
   Trip({
     this.id,
     required this.title,
@@ -53,5 +56,6 @@ class Trip extends HiveObject {
     this.travellors,
     this.isFavorite = false,
     this.isCompleted,
-  });
+     Map<String, List<String>>? iteneraries,
+  }) : iteneraries = iteneraries ?? {} ;
 }

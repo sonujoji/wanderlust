@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wanderlust/models/trip.dart';
+import 'package:wanderlust/screens/pages/home.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
+import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
@@ -176,6 +178,7 @@ class _EditTripDialogState extends State<EditTripDialog> {
 
   void updateTrip() async {
     final updatedTrip = Trip(
+    id: widget.trip.id,
       title: placeController.text,
       description: descriptionController.text,
       budget: int.parse(budgetController.text),
@@ -186,8 +189,14 @@ class _EditTripDialogState extends State<EditTripDialog> {
       destinationImage: updatedImage.path,
     );
     await _tripService.updateTrip(widget.index, updatedTrip);
-    Navigator.pop(context);
+    setState(() {});
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (Route<dynamic> route) => false,
+    );
     customSnackBar(context, 'Trip updated successfully');
     await _tripService.getTripDetails();
   }
 }
+

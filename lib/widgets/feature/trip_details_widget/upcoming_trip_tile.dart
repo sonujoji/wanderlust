@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
@@ -7,16 +7,16 @@ import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 
-class ListTrips extends StatefulWidget {
+class ListUpcomingTrips extends StatefulWidget {
   final Trip trip;
   final int index;
-  const ListTrips({required this.trip, required this.index, super.key});
+  const ListUpcomingTrips({required this.trip, required this.index, super.key});
 
   @override
-  State<ListTrips> createState() => _ListTripsState();
+  State<ListUpcomingTrips> createState() => _ListUpcomingTripsState();
 }
 
-class _ListTripsState extends State<ListTrips> {
+class _ListUpcomingTripsState extends State<ListUpcomingTrips> {
   final TripService _tripService = TripService();
 
   @override
@@ -102,14 +102,24 @@ class _ListTripsState extends State<ListTrips> {
         child: LikeButton(
           isLiked: widget.trip.isFavorite,
           onTap: (isLiked) async {
-            widget.trip.isFavorite = !isLiked;
-            await _tripService.updateTrip(widget.index, widget.trip);
-            await _tripService.getTripDetails();
-            return !isLiked;
+            try {
+              widget.trip.isFavorite = !isLiked;
+
+              await widget.trip.save();
+             // await _tripService.updateTrip(widget.index, widget.trip);
+              await _tripService.getTripDetails();
+              return !isLiked;
+            } catch (e) {
+              log("Error updating fav status: $e");
+              return isLiked;
+            }
           },
           likeBuilder: (isLiked) {
-            return Icon(isLiked ? Icons.bookmark : Icons.bookmark_border,
-                color: isLiked ? Colors.red : Colors.white);
+            return Icon(
+              isLiked ? Icons.bookmark : Icons.bookmark_border,
+              color: isLiked ? Colors.red : Colors.white,
+              size: 30,
+            );
           },
         ),
       ),

@@ -10,7 +10,8 @@ import 'package:wanderlust/widgets/global/custom_text.dart';
 class SavedTripsComponent extends StatefulWidget {
   final Trip trip;
   final int index;
-  const SavedTripsComponent({super.key, required this.trip,required this.index});
+  const SavedTripsComponent(
+      {super.key, required this.trip, required this.index});
 
   @override
   State<SavedTripsComponent> createState() => _SavedTripsComponentState();
@@ -74,7 +75,7 @@ class _SavedTripsComponentState extends State<SavedTripsComponent> {
                     isLiked: widget.trip.isFavorite,
                     onTap: (isLiked) async {
                       widget.trip.isFavorite = !isLiked;
-                      await _tripService.updateTrip(widget.index, widget.trip);
+                      await widget.trip.save();
                       await _tripService.getTripDetails();
                       return !isLiked;
                     },

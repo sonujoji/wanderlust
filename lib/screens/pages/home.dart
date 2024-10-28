@@ -1,14 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/widgets/feature/floating_action_button/floating_button.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/delete_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/trip_details_widget/edit_trip_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/trip_details.dart';
-import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trips.dart';
+import 'package:wanderlust/widgets/feature/trip_details_widget/trip_details_page.dart';
+import 'package:wanderlust/widgets/feature/trip_details_widget/upcoming_trip_tile.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
@@ -55,6 +56,10 @@ class _HomepageScreenState extends State<HomepageScreen> {
     budgetController.dispose();
     super.dispose();
   }
+
+  // Future<void> _handleRefresh() async {
+  //   await Future.delayed(Duration(seconds: 3));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -140,15 +145,17 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                         icon: Icons.delete,
                                       )
                                     ]),
-                                child: GestureDetector(
+                                child: InkWell(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                TripDetailsScreen()));
+                                                TripDetailsScreen(
+                                                  trip: trip,
+                                                )));
                                   },
-                                  child: ListTrips(
+                                  child: ListUpcomingTrips(
                                     trip: trip,
                                     index: index,
                                   ),

@@ -71,7 +71,7 @@ class _CompletedTripsTileState extends State<CompletedTripsTile> {
                           ),
                           Icon(
                             Icons.outbond,
-                            color: blue,
+                            color: Colors.white70,
                             size: 40,
                           )
                         ],

@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wanderlust/screens/pages/completed_trips.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/screens/pages/saved_trips.dart';
-import 'package:wanderlust/screens/pages/upcoming_trips.dart';
+import 'package:wanderlust/screens/pages/home.dart';
 import 'package:wanderlust/screens/pages/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/utils/colors.dart';
+import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
 import 'package:wanderlust/service/trip_service.dart';
@@ -27,7 +29,7 @@ class _AddTripPageState extends State<AddTripPage> {
     start: DateTime.now(),
     end: DateTime.now(),
   );
-  @override 
+  @override
   void initState() {
     titleController = TextEditingController();
     countryController = TextEditingController();
@@ -287,14 +289,19 @@ class _AddTripPageState extends State<AddTripPage> {
     );
     await _tripService.addTrip(newTrip);
 
-    print(newTrip.country);
+    log('${newTrip.title}');
     print(newTrip.destinationImage);
 
     customSnackBar(context, 'Trip added succesfully');
 
     tripListNotifier.value = [...tripListNotifier.value];
 
-    Navigator.pop(context);
+    // _tripService.getTripDetails();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+     (Route<dynamic> route) => false,
+    );
   }
 
   Future pickDateRange() async {

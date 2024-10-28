@@ -29,13 +29,15 @@ class TripAdapter extends TypeAdapter<Trip> {
       travellors: (fields[9] as List?)?.cast<String>(),
       isFavorite: fields[10] as bool,
       isCompleted: fields[11] as bool?,
+      iteneraries: (fields[12] as Map?)?.map((dynamic k, dynamic v) =>
+          MapEntry(k as String, (v as List).cast<String>())),
     );
   }
 
   @override
   void write(BinaryWriter writer, Trip obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -59,7 +61,9 @@ class TripAdapter extends TypeAdapter<Trip> {
       ..writeByte(10)
       ..write(obj.isFavorite)
       ..writeByte(11)
-      ..write(obj.isCompleted);
+      ..write(obj.isCompleted)
+      ..writeByte(12)
+      ..write(obj.iteneraries);
   }
 
   @override
