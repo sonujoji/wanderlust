@@ -73,3 +73,29 @@ class Documents extends HiveObject {
 
   Documents({required this.photos, required this.id, required this.tripId});
 }
+
+@HiveType(typeId: 3)
+class Budget extends HiveObject {
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final String tripId;
+
+  @HiveField(2)
+  final String title;
+
+  @HiveField(3)
+  final DateTime expenseDate;
+
+  @HiveField(4)
+  final int expenseAmount;
+
+  Budget({
+    required this.id,
+    required this.tripId,
+    required this.title,
+    required this.expenseDate,
+    required this.expenseAmount,
+  });
+}

@@ -3,7 +3,6 @@ import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/saved_trips/saved_trips_components.dart.dart';
-import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class SavedTrips extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/widgets/feature/floating_action_button/floating_button.dart';
 import 'package:wanderlust/service/trip_service.dart';

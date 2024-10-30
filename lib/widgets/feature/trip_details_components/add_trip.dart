@@ -289,7 +289,7 @@ class _AddTripPageState extends State<AddTripPage> {
     );
     await _tripService.addTrip(newTrip);
 
-    log('${newTrip.title}');
+    log(newTrip.title);
     print(newTrip.destinationImage);
 
     customSnackBar(context, 'Trip added succesfully');

@@ -18,7 +18,7 @@ class SavedTripsComponent extends StatefulWidget {
 }
 
 class _SavedTripsComponentState extends State<SavedTripsComponent> {
-  TripService _tripService = TripService();
+  final TripService _tripService = TripService();
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

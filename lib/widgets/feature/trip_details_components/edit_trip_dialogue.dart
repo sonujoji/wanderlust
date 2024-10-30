@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/screens/pages/home.dart';
+import 'package:wanderlust/screens/pages/upcoming_trips_page.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
@@ -15,7 +15,7 @@ import 'package:wanderlust/widgets/global/custom_textfield.dart';
 class EditTripDialog extends StatefulWidget {
   final Trip trip;
   final int index;
-  EditTripDialog({super.key, required this.trip, required this.index});
+  const EditTripDialog({super.key, required this.trip, required this.index});
 
   @override
   // ignore: library_private_types_in_public_api

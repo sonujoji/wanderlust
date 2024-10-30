@@ -3,6 +3,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth/splash_screen.dart';
+import 'package:wanderlust/service/budget_service.dart';
+import 'package:wanderlust/service/doc_service.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/service/trip_service.dart';
 
@@ -15,7 +17,11 @@ void main() async {
 
   //documents adapter
   Hive.registerAdapter(DocumentsAdapter());
-  
+  await DocService().openBox();
+
+  //budget adapter
+  Hive.registerAdapter(BudgetAdapter());
+  BudgetService().openBox;
 
   //addTrip adaptor
   Hive.registerAdapter(TripAdapter());

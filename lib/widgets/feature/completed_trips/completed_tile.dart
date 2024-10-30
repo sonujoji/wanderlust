@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 
 class CompletedTripsTile extends StatefulWidget {

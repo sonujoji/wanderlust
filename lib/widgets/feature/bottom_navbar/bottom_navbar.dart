@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:wanderlust/screens/pages/completed_trips.dart';
+import 'package:wanderlust/screens/pages/completed_trips_page.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/screens/pages/saved_trips.dart';
-import 'package:wanderlust/screens/pages/home.dart';
-import 'package:wanderlust/screens/pages/profile_screen.dart';
+import 'package:wanderlust/screens/pages/saved_trips_page.dart';
+import 'package:wanderlust/screens/pages/upcoming_trips_page.dart';
+import 'package:wanderlust/screens/pages/profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

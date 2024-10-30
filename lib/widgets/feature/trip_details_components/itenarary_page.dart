@@ -18,7 +18,7 @@ class _ItenararyPageState extends State<ItenararyPage> {
   int selectTab = 0;
   @override
   Widget build(BuildContext context) {
-    TripService _tripService = TripService();
+    TripService tripService = TripService();
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     List<DateTime> days =
@@ -53,12 +53,11 @@ class _ItenararyPageState extends State<ItenararyPage> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: (iteneraries != null && 
-                          iteneraries["Day ${selectTab + 1}"] != null)
+                  itemCount: (iteneraries["Day ${selectTab + 1}"] != null)
                       ? iteneraries["Day ${selectTab + 1}"]!.length
                       : 0,
                   itemBuilder: (BuildContext context, int index) {
-                    List<String>? plans = iteneraries!["Day ${selectTab + 1}"];
+                    List<String>? plans = iteneraries["Day ${selectTab + 1}"];
                     return Card(
                       child: ListTile(
                         leading: Container(
@@ -77,7 +76,7 @@ class _ItenararyPageState extends State<ItenararyPage> {
                                 iteneraries["Day ${selectTab + 1}"]
                                     ?.remove(plans[index]);
                               });
-                              await _tripService.updateTrip(index, trip);
+                              await tripService.updateTrip(index, trip);
                             },
                             icon: Icon(Icons.remove_circle)),
                       ),
@@ -93,7 +92,7 @@ class _ItenararyPageState extends State<ItenararyPage> {
                   context: context,
                   addItenerary: (newPlan) {
                     setState(() {
-                      iteneraries!["Day ${selectTab + 1}"]?.add(newPlan);
+                      iteneraries["Day ${selectTab + 1}"]?.add(newPlan);
                     });
                   }
                   ).addItenerairesDialogue();
