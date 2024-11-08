@@ -39,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   const Text(
-                    'Wanderlust',
+                    'Roadmapper',
                     style: TextStyle(
                       fontSize: 34,
                       color: Colors.white,

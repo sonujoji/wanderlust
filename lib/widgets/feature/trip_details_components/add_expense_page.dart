@@ -43,7 +43,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
-        firstDate: widget.trip.startDate,
+        firstDate: DateTime.now(),
         lastDate: widget.trip.endDate,
         initialDate: widget.trip.startDate);
 

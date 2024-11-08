@@ -63,7 +63,7 @@ class DocService {
       refreshDocumentList();
     } catch (e) {
       log('Error while deleting the document $e');
-    }
+    } 
   }
 
   void refreshDocumentList() {

@@ -309,6 +309,7 @@ class _AddTripPageState extends State<AddTripPage> {
       context: context,
       initialDateRange: dateRange,
       firstDate: DateTime(2024),
+   // firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     );
 

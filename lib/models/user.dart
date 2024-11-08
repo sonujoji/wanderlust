@@ -19,11 +19,15 @@ class User extends HiveObject {
   @HiveField(4)
   late String? profileImage;
 
+  // @HiveField(5)
+  // final String userId;
+
   User({
     required this.username,
     required this.email,
     required this.phone,
     required this.password,
     this.profileImage,
+    // required this.userId,
   });
 }

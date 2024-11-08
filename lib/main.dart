@@ -5,6 +5,7 @@ import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth/splash_screen.dart';
 import 'package:wanderlust/service/budget_service.dart';
 import 'package:wanderlust/service/doc_service.dart';
+import 'package:wanderlust/service/memories_service.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/service/trip_service.dart';
 
@@ -21,8 +22,12 @@ void main() async {
 
   //budget adapter
   Hive.registerAdapter(BudgetAdapter());
-  BudgetService().openBox;
+  await BudgetService().openBox();
 
+  //memories adapter
+  Hive.registerAdapter(MemoriesAdapter());
+  await MemoriesService().openBox();
+  
   //addTrip adaptor
   Hive.registerAdapter(TripAdapter());
   await TripService().openBox();

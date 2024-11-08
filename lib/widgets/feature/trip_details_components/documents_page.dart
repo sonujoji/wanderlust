@@ -22,6 +22,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
   final ImagePicker _picker = ImagePicker();
   final DocService _docService = DocService();
   List<String> imagePaths = [];
+  List<String> documentIds = [];
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
     final docs = await _docService.getDocsByTripid(widget.tripId);
     setState(() {
       imagePaths = docs.expand((doc) => doc.photos).toList();
+      documentIds = docs.map((doc) => doc.id).toList();
     });
     documentsListNotifier.value = docs;
     documentsListNotifier.notifyListeners();
@@ -73,16 +75,22 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   itemCount: imagePaths.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 0.8,
-                      mainAxisSpacing: 0.8),
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5),
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        bool? documentDeleted = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DetailedDocView(
-                                    imagePath: imagePaths[index])));
+                                      imagePath: imagePaths[index],
+                                      documentId: documentIds[index],
+                                    )));
+
+                        if (documentDeleted == true) {
+                          await _loadDocuments();
+                        }
                       },
                       child: Image.file(
                         File(imagePaths[index]),

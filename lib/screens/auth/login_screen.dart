@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanderlust/screens/auth/auth_widgets/signup_widgets.dart';
+import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth/signup_screen.dart';
-import 'package:wanderlust/service/signup_service.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -118,6 +118,11 @@ class _LogInScreenState extends State<LogInScreen> {
         ));
   }
 
+  Future<void> setLoginUserDetails(User loggedInUser) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('loggedInUsername', loggedInUser.username);
+  }
+
   Future<void> checkUserLogedin() async {
     List<User> users = await userService.getUserData();
     setState(() {});
@@ -127,6 +132,7 @@ class _LogInScreenState extends State<LogInScreen> {
       if (user.username == usernameControllerLogin.text.trim() &&
           user.password == passwordControllerLogin.text.trim()) {
         await setLoginState(true);
+        await setLoginUserDetails(user);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HomeScreen()));
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

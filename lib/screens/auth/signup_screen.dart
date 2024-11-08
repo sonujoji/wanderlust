@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wanderlust/screens/auth/login_screen.dart';
 import 'package:wanderlust/screens/auth/auth_widgets/signup_widgets.dart';
+import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 
-import 'package:wanderlust/service/signup_service.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -134,6 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> createUserAccount() async {
     if (_formKey.currentState!.validate()) {
       final newUser = User(
+        // userId: Uuid().v4(),
         username: _usernameController.text.trim(),
         email: _emailController.text.trim(),
         phone: int.parse(_phoneController.text.trim()),

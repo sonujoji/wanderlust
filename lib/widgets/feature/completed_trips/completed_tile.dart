@@ -72,7 +72,7 @@ class _CompletedTripsTileState extends State<CompletedTripsTile> {
                             Icons.outbond,
                             color: Colors.white70,
                             size: 40,
-                          )
+                          ) 
                         ],
                       ),
                     ],

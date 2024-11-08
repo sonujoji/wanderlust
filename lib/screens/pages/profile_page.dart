@@ -4,11 +4,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanderlust/screens/pages/main_screens/profile_widgets.dart';
+import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 
-import 'package:wanderlust/service/signup_service.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,28 +20,37 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController phoneController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final UserService _userService = UserService();
   User? currentUser;
   int? currentUserIndex;
   File? _selectedImage;
 
   Future<void> _loadUserdata() async {
-    List<User> users = await _userService.getUserData();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? loggedInUsername = prefs.getString('loggedInUsername');
 
-    if (users.isNotEmpty) {
-      setState(() {
-        currentUser = users.last;
-        currentUserIndex = users.length - 1;
-        emailController.text = currentUser!.email;
-        phoneController.text = currentUser!.phone.toString();
-        if (currentUser!.profileImage != null) {
-          _selectedImage = File(currentUser!.profileImage!);
+    if (loggedInUsername != null) {
+      List<User> users = await _userService.getUserData();
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].username == loggedInUsername) {
+          setState(
+            () {
+              currentUser = users[i];
+              currentUserIndex = i;
+              if (currentUser!.profileImage != null) {
+                _selectedImage = File(currentUser!.profileImage!);
+              }
+            },
+          );
+          break;
+        } else {
+          log('No logged-in user found');
         }
-      });
+      }
     }
   }
 
@@ -52,18 +63,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       currentUser!.profileImage = image.path;
       _userService.updateUser(currentUserIndex!, currentUser!);
     }
-  }
-
-  Future<void> editUserDetails() async {
-    currentUser!.email = emailController.text;
-    currentUser!.phone = int.parse(phoneController.text);
-    log('this line is working');
-    if (currentUser != null && currentUserIndex != null) {
-      await _userService.updateUser(currentUserIndex!, currentUser!);
-
-      Navigator.pop(context);
-    }
-    setState(() {});
   }
 
   @override
@@ -91,67 +90,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: screenHeight * 0.01,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: grey, width: 15)),
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: GestureDetector(
-                    onTap: () async {
-                      File? pickedImage = await pickImageFromGallery();
-                      if (pickedImage != null) {
-                        setImage(pickedImage);
-                      }
-                    },
-                    child:
-                        currentUser != null && currentUser!.profileImage != null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(70),
-                                child: Image.file(
-                                  fit: BoxFit.cover,
-                                  File(currentUser!.profileImage!),
-                                ),
-                              )
-                            : const Icon(
-                                Icons.add_a_photo,
-                                size: 30,
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: grey, width: 15)),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: GestureDetector(
+                  onTap: () async {
+                    File? pickedImage = await pickImageFromGallery();
+                    if (pickedImage != null) {
+                      setImage(pickedImage);
+                    }
+                  },
+                  child:
+                      currentUser != null && currentUser!.profileImage != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: Image.file(
+                                fit: BoxFit.cover,
+                                File(currentUser!.profileImage!),
                               ),
-                  ),
+                            )
+                          : const Icon(
+                              Icons.add_a_photo,
+                              size: 30,
+                            ),
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.01,
-              ),
-              Text(
-                currentUser?.username ?? 'username',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
-              ),
-              EditprofileTIle(
-                currentEmailController: emailController,
-                currentPhoneController: phoneController,
-                screenHeight: screenHeight,
-                currentUser: currentUser,
-                currentUserIndex: currentUserIndex,
-              ),
-              const PrivacyListtile(),
-              const LogoutTile(),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
+            Text(
+              currentUser?.username ?? 'username',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+            EditprofileTIle(            
+              currentUser: currentUser,
+              currentUserIndex: currentUserIndex,
+            ),
+            const PrivacyListtile(),
+            const TermsListtile(),
+            const LogoutTile(),
+          ],
         ),
       ),
     );

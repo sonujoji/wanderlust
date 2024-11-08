@@ -99,3 +99,17 @@ class Budget extends HiveObject {
     required this.expenseAmount,
   });
 }
+
+@HiveType(typeId: 4)
+class Memories extends HiveObject {
+  @HiveField(0)
+  final List<String> memories;
+
+  @HiveField(1)
+  final String id;
+
+  @HiveField(2)
+  final String tripId;
+
+  Memories({required this.memories, required this.id, required this.tripId});
+}

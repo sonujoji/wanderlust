@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/widgets/feature/floating_action_button/floating_button.dart';
+import 'package:wanderlust/widgets/feature/floating_action_button/add_trip_button.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/trip_details_components/delete_trip_dialogue.dart';
