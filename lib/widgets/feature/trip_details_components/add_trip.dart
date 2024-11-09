@@ -300,7 +300,7 @@ class _AddTripPageState extends State<AddTripPage> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => HomeScreen()),
-     (Route<dynamic> route) => false,
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -308,8 +308,8 @@ class _AddTripPageState extends State<AddTripPage> {
     DateTimeRange? newDateRange = await showDateRangePicker(
       context: context,
       initialDateRange: dateRange,
-      firstDate: DateTime(2024),
-   // firstDate: DateTime.now(),
+      // firstDate: DateTime(2024),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     );
 

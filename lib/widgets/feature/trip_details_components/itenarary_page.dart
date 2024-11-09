@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/trip.dart';
+import 'package:wanderlust/service/iteneraries_service.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/show_dialogues/itenaray_dialogue.dart';
+import 'package:wanderlust/widgets/feature/trip_details_components/add_itenerary.dart';
 import 'package:wanderlust/widgets/feature/trip_details_components/animated_container.dart';
 import 'package:wanderlust/widgets/global/custom_floating_button.dart';
+import 'package:wanderlust/widgets/global/custom_snackbar.dart';
+import 'package:wanderlust/widgets/global/custom_text.dart';
 
 class ItenararyPage extends StatefulWidget {
   final Trip trip;
@@ -16,15 +20,25 @@ class ItenararyPage extends StatefulWidget {
 
 class _ItenararyPageState extends State<ItenararyPage> {
   int selectTab = 0;
+  Map<String, List<String>> iteneraries = {};
+
+  @override
+  void initState() {
+    iteneraries = widget.trip.iteneraries ?? {};
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     TripService tripService = TripService();
+    // tripService.updateTrip(index, trip)
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     List<DateTime> days =
         getDaysCount(widget.trip.startDate, widget.trip.endDate);
     final Trip trip = widget.trip;
-   Map<String, List<String>>? iteneraries = trip.iteneraries;
+
     return ValueListenableBuilder(
       valueListenable: tripListNotifier,
       builder: (context, value, child) {
@@ -51,51 +65,49 @@ class _ItenararyPageState extends State<ItenararyPage> {
                   ),
                 ),
               ),
-              Expanded(
+              Expanded( 
                 child: ListView.builder(
-                  itemCount: (iteneraries["Day ${selectTab + 1}"] != null)
-                      ? iteneraries["Day ${selectTab + 1}"]!.length
-                      : 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    List<String>? plans = iteneraries["Day ${selectTab + 1}"];
-                    return Card(
-                      child: ListTile(
-                        leading: Container(
-                          height: screenHeight * 0.03,
-                          width: screenWidth * 0.07,
-                          decoration: BoxDecoration(
-                              color: white, shape: BoxShape.circle),
-                          child: Center(
-                            child: Text("${index + 1}"),
+                    itemCount: iteneraries["Day ${selectTab + 1}"]?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      List<String>? plans = iteneraries["Day ${selectTab + 1}"];
+                      return Card(
+                        child: ListTile(
+                          leading: Container(
+                            height: screenHeight * 0.03,
+                            width: screenWidth * 0.07,
+                            decoration: const BoxDecoration(
+                                color: white, shape: BoxShape.circle),
+                            child: Center(child: Text("${index + 1}")),
                           ),
+                          title: Text(plans![index]),
+                          trailing: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  iteneraries["Day ${selectTab + 1}"]
+                                      ?.remove(plans[index]);
+                                });
+                              },
+                              icon: const Icon(Icons.remove)),
                         ),
-                        title: Text(plans![index]),
-                        trailing: IconButton(
-                            onPressed: () async {
-                              setState(() {
-                                iteneraries["Day ${selectTab + 1}"]
-                                    ?.remove(plans[index]);
-                              });
-                              await tripService.updateTrip(index, trip);
-                            },
-                            icon: Icon(Icons.remove_circle)),
-                      ),
-                    );
-                  },
-                ),
+                      );
+                    }),
               )
             ],
           ),
           floatingActionButton: CustomFloatingButton(
             onPressed: () {
-              ItenarayDialogue(
-                  context: context,
-                  addItenerary: (newPlan) {
-                    setState(() {
-                      iteneraries["Day ${selectTab + 1}"]?.add(newPlan);
-                    });
-                  }
-                  ).addItenerairesDialogue();
+              EditPlanDialogue(
+                context: context,
+                addplan: (newPlan) {
+                  setState(() {
+                   iteneraries["Day ${selectTab + 1}"]?.add(newPlan);
+                   
+                  });
+                },
+              ).showEditPlanDialogue();
+              setState(() {
+                updateTripActivities(iteneraries);
+              });
             },
             icon: Icons.edit,
           ),
@@ -137,5 +149,11 @@ class _ItenararyPageState extends State<ItenararyPage> {
           day: day,
           date: date),
     );
+  }
+
+  void updateTripActivities(Map<String, List<String>> updatedActivities) {
+    setState(() {
+      widget.trip.iteneraries = updatedActivities;
+    });
   }
 }

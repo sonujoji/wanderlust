@@ -25,7 +25,7 @@ Future<void> setLoginState(bool isLoggedIn) async {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController usernameControllerLogin = TextEditingController();
   TextEditingController passwordControllerLogin = TextEditingController();
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkeyTwo = GlobalKey<FormState>();
   UserService userService = UserService();
 
   @override
@@ -38,7 +38,7 @@ class _LogInScreenState extends State<LogInScreen> {
           padding: EdgeInsets.symmetric(
               horizontal: screenWidth * 0.1, vertical: screenHeight * 0.1),
           child: Form(
-            key: _formkey,
+            key: _formkeyTwo,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -75,7 +75,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 110, vertical: 7)),
                     onPressed: () {
-                      if (_formkey.currentState!.validate()) {
+                      if (_formkeyTwo.currentState!.validate()) {
                         checkUserLogedin();
                       }
                     },

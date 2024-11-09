@@ -26,11 +26,11 @@ class TripAdapter extends TypeAdapter<Trip> {
       travellorCount: fields[5] as int,
       country: fields[7] as String?,
       destinationImage: fields[8] as String,
+      iteneraries: (fields[12] as Map?)?.map((dynamic k, dynamic v) =>
+          MapEntry(k as String, (v as List).cast<String>())),
       travellors: (fields[9] as List?)?.cast<String>(),
       isFavorite: fields[10] as bool,
       isCompleted: fields[11] as bool?,
-      iteneraries: (fields[12] as Map?)?.map((dynamic k, dynamic v) =>
-          MapEntry(k as String, (v as List).cast<String>())),
     );
   }
 

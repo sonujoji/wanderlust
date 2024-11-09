@@ -48,8 +48,15 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-            children: [ItenararyPage(trip: widget.trip), BudgetPage(trip: widget.trip,), DocumentsPage(tripId: widget.trip.id.toString(),)]),
+        body: TabBarView(children: [
+          ItenararyPage(trip: widget.trip),
+          BudgetPage(
+            trip: widget.trip,
+          ),
+          DocumentsPage(
+            tripId: widget.trip.id.toString(),
+          )
+        ]),
       ),
     );
   }

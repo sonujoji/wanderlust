@@ -83,13 +83,13 @@ class _ListUpcomingTripsState extends State<ListUpcomingTrips> {
                       ),
                     ],
                   ),
-                  Text(
-                    ' 🗺️ ${widget.trip.description}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
-                  ),
+                  // Text(
+                  //   ' 🗺️ ${widget.trip.description}',
+                  //   style: const TextStyle(
+                  //       fontSize: 14,
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.w500),
+                  // ),
                 ],
               ),
             ),

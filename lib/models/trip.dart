@@ -41,7 +41,7 @@ class Trip extends HiveObject {
   late bool? isCompleted;
 
   @HiveField(12)
-  Map<String, List<String>> iteneraries = {};
+  late Map<String, List<String>>? iteneraries;
 
   Trip({
     this.id,
@@ -53,11 +53,12 @@ class Trip extends HiveObject {
     required this.travellorCount,
     required this.country,
     required this.destinationImage,
-    this.travellors,
+    this.iteneraries,
+    this.travellors, 
     this.isFavorite = false,
     this.isCompleted,
-    Map<String, List<String>>? iteneraries,
-  }) : iteneraries = iteneraries ?? {};
+  
+  }) ;
 }
 
 @HiveType(typeId: 2)
@@ -113,3 +114,18 @@ class Memories extends HiveObject {
 
   Memories({required this.memories, required this.id, required this.tripId});
 }
+
+// @HiveType(typeId: 5)
+// class Iteneraries extends HiveObject {
+//   @HiveField(0)
+//   Map<String, List<String>> iteneraries = {};
+
+//   @HiveField(1)
+//   final String id;
+
+//   @HiveField(2)
+//   final String tripId;
+
+//   Iteneraries(
+//       {required this.id, required this.iteneraries, required this.tripId});
+// }

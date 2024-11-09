@@ -61,6 +61,9 @@ class _BudgetPageState extends State<BudgetPage> {
     final groupedBudgets = _groupBudgetsByDate();
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    final totalExpence =
+        _budgets.fold(0, (sum, item) => sum + item.expenseAmount);
+    final remainingBudget = (widget.trip.budget - totalExpence).abs();
 
     return Scaffold(
       body: Column(
@@ -76,21 +79,59 @@ class _BudgetPageState extends State<BudgetPage> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText(
-                      text: 'TOTAL EXPENSE',
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text: 'TOTAL EXPENSE',
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        CustomText(
+                          text:
+                              '₹${_budgets.fold(0, (sum, item) => sum + item.expenseAmount)}',
+                          color: blue,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        )
+                      ],
                     ),
-                    CustomText(
-                      text:
-                          '₹${_budgets.fold(0, (sum, item) => sum + item.expenseAmount)}',
-                      color: blue,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    )
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text: 'Total Budget ',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        CustomText(
+                          text: '₹${widget.trip.budget}',
+                          fontSize: 18,
+                          color: blue,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text: 'Remaining Budget  ',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        CustomText(
+                          text: '₹${remainingBudget}',
+                          fontSize: 18,
+                          color: blue,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

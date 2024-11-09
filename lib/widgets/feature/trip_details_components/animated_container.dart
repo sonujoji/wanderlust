@@ -19,7 +19,9 @@ Widget animatedContainerWidget({
         width: selectTab == index ? 90 : 70,
         height: 50,
         decoration: BoxDecoration(
-            color: selectTab == index ? blue : secondaryColor,
+            color: selectTab == index
+                ? blue
+                : const Color.fromARGB(255, 162, 162, 165),
             borderRadius: BorderRadius.circular(10)),
         child: selectTab == index
             ? Column(

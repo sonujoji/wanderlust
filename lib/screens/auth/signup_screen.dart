@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyOne = GlobalKey<FormState>();
 
   final UserService _userService = UserService();
 
@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             top: screenHeight * 0.04),
         child: Center(
           child: Form(
-            key: _formKey,
+            key: _formKeyOne,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -134,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> createUserAccount() async {
-    if (_formKey.currentState!.validate()) {
+    if (_formKeyOne.currentState!.validate()) {
       final newUser = User(
         // userId: Uuid().v4(),
         username: _usernameController.text.trim(),

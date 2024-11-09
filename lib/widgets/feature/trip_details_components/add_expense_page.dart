@@ -45,7 +45,9 @@ class _AddExpensePageState extends State<AddExpensePage> {
         context: context,
         firstDate: DateTime.now(),
         lastDate: widget.trip.endDate,
-        initialDate: widget.trip.startDate);
+        initialDate: widget.trip.startDate,
+        
+        );
 
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
