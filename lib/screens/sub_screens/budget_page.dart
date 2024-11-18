@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/budget_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/add_expense_page.dart';
+import 'package:wanderlust/screens/sub_screens/add_expense_page.dart';
 import 'package:wanderlust/widgets/global/custom_floating_button.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 

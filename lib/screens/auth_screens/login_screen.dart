@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanderlust/screens/auth/auth_widgets/signup_widgets.dart';
+import 'package:wanderlust/widgets/feature/signup_widgets.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/auth/signup_screen.dart';
+import 'package:wanderlust/screens/auth_screens/signup_screen.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});

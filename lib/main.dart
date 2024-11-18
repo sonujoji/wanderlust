@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/auth/splash_screen.dart';
+import 'package:wanderlust/screens/auth_screens/splash_screen.dart';
 import 'package:wanderlust/service/budget_service.dart';
 import 'package:wanderlust/service/doc_service.dart';
 import 'package:wanderlust/service/iteneraries_service.dart';

@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/user.dart';
-import 'package:wanderlust/screens/auth/login_screen.dart';
-import 'package:wanderlust/screens/pages/privacy_policy.dart';
+import 'package:wanderlust/screens/auth_screens/login_screen.dart';
+import 'package:wanderlust/widgets/feature/privacy_policy.dart';
 
-import 'package:wanderlust/screens/pages/profile_page.dart';
-import 'package:wanderlust/screens/pages/terms_conditions.dart';
+import 'package:wanderlust/screens/main_screens/profile_page.dart';
+import 'package:wanderlust/widgets/feature/terms_conditions.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/global/custom_listtile.dart';

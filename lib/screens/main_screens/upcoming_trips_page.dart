@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/widgets/feature/floating_action_button/add_trip_button.dart';
+import 'package:wanderlust/widgets/feature/add_trip_button.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/delete_trip_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/edit_trip_dialogue.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/trip_details_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/upcoming_trip_tile.dart';
+import 'package:wanderlust/widgets/feature/delete_trip_dialogue.dart';
+import 'package:wanderlust/widgets/feature/edit_trip_dialogue.dart';
+import 'package:wanderlust/screens/sub_screens/trip_details_page.dart';
+import 'package:wanderlust/widgets/feature/upcoming_trip_tile.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 

@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanderlust/screens/pages/main_screens/profile_widgets.dart';
+import 'package:wanderlust/widgets/feature/profile_widgets.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';

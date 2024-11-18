@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/doc_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/detailed_doc_view.dart';
+import 'package:wanderlust/screens/sub_screens/detailed_doc_page.dart';
 import 'package:wanderlust/widgets/global/custom_floating_button.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'Package:photo_view/photo_view.dart';

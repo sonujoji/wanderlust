@@ -41,7 +41,7 @@ class Trip extends HiveObject {
   late bool? isCompleted;
 
   @HiveField(12)
-  late Map<String, List<String>>? iteneraries;
+  late Map<String, List<String>>? iteneraries = {};
 
   Trip({
     this.id,

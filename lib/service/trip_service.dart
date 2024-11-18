@@ -46,6 +46,13 @@ class TripService {
     await _tripBox!.putAt(index, trip);
   }
 
+  Future<void> updateItinerary(int tripId, Trip trip) async {
+    await ensureBoxOpen();
+
+    await _tripBox!.put(tripId, trip);
+    tripListNotifier.notifyListeners();
+  }
+
   Future<void> deleteTrip(int index) async {
     await ensureBoxOpen();
     await _tripBox!.deleteAt(index);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wanderlust/screens/auth/login_screen.dart';
+import 'package:wanderlust/screens/auth_screens/login_screen.dart';
 import 'package:wanderlust/utils/colors.dart';
 
-import 'package:wanderlust/screens/auth/signup_screen.dart';
+import 'package:wanderlust/screens/auth_screens/signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

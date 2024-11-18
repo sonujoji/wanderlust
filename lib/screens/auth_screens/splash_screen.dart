@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/screens/auth/welcomeScreen.dart';
+import 'package:wanderlust/screens/auth_screens/welcomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

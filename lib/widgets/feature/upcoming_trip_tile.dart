@@ -83,13 +83,7 @@ class _ListUpcomingTripsState extends State<ListUpcomingTrips> {
                       ),
                     ],
                   ),
-                  // Text(
-                  //   ' 🗺️ ${widget.trip.description}',
-                  //   style: const TextStyle(
-                  //       fontSize: 14,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.w500),
-                  // ),
+                 
                 ],
               ),
             ),
@@ -106,7 +100,7 @@ class _ListUpcomingTripsState extends State<ListUpcomingTrips> {
               widget.trip.isFavorite = !isLiked;
 
               await widget.trip.save();
-             // await _tripService.updateTrip(widget.index, widget.trip);
+            
               await _tripService.getTripDetails();
               return !isLiked;
             } catch (e) {

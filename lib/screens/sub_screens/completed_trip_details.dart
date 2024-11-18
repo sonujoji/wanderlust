@@ -8,7 +8,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/memories_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/completed_trips/completed_container.dart';
+import 'package:wanderlust/widgets/feature/completed_container.dart';
 import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 

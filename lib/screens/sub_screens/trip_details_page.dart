@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/budget_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/documents_page.dart';
-import 'package:wanderlust/widgets/feature/trip_details_components/itenarary_page.dart';
+import 'package:wanderlust/screens/sub_screens/budget_page.dart';
+import 'package:wanderlust/screens/sub_screens/documents_page.dart';
+import 'package:wanderlust/screens/sub_screens/itenarary_page.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 
 class TripDetailsScreen extends StatefulWidget {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wanderlust/models/trip.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
-import 'package:wanderlust/widgets/feature/completed_trips/completed_tile.dart';
-import 'package:wanderlust/widgets/feature/completed_trips/completed_trip_details.dart';
+import 'package:wanderlust/widgets/feature/completed_tile.dart';
+import 'package:wanderlust/screens/sub_screens/completed_trip_details.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class CompletedTripsScreen extends StatefulWidget {
