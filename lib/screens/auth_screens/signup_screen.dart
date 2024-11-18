@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uuid/uuid.dart';
 import 'package:wanderlust/screens/auth_screens/login_screen.dart';
 import 'package:wanderlust/widgets/feature/signup_widgets.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
-
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -33,9 +30,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: primaryColor,
       body: Padding(
         padding: EdgeInsets.only(
-            left: screenWidth * 0.1,
-            right: screenWidth * 0.1,
-            top: screenHeight * 0.04),
+          left: screenWidth * 0.1,
+          right: screenWidth * 0.1,
+          top: screenHeight * 0.04,
+        ),
         child: Center(
           child: Form(
             key: _formKeyOne,
@@ -58,7 +56,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   UsernameTextfield(
                     usernameController: _usernameController,
-                    
                   ),
                   SizedBox(
                     height: screenHeight * 0.012,
@@ -81,20 +78,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: screenHeight * 0.03,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 60, vertical: 7)),
-                    onPressed: () {
-                      createUserAccount();
-                    },
-                    child: const Text(
-                      'Create Account',
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                  SizedBox(
+                    width: screenWidth * 0.8,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 60, vertical: 7)),
+                      onPressed: () {
+                        createUserAccount();
+                      },
+                      child: const Text(
+                        'Create Account',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
                     ),
                   ),
                   Row(
@@ -132,11 +132,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+  
+  // create new user account 
 
   Future<void> createUserAccount() async {
     if (_formKeyOne.currentState!.validate()) {
       final newUser = User(
-        // userId: Uuid().v4(),
         username: _usernameController.text.trim(),
         email: _emailController.text.trim(),
         phone: int.parse(_phoneController.text.trim()),

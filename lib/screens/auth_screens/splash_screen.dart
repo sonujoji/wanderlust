@@ -20,20 +20,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final logoSize = screenWidth * 0.25;
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(
         child: ClipOval(
           child: Image.asset(
             'assets/images/wanderlustLogo.jpg',
-            width: 100,
-            height: 100,
+            width: logoSize,
+            height: logoSize,
           ),
         ),
       ),
     );
   }
-
+  
+  // checking the current status
+  
   Future<void> goToLogin() async {
     await Future.delayed(const Duration(seconds: 1));
 

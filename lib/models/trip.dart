@@ -115,17 +115,3 @@ class Memories extends HiveObject {
   Memories({required this.memories, required this.id, required this.tripId});
 }
 
-// @HiveType(typeId: 5)
-// class Iteneraries extends HiveObject {
-//   @HiveField(0)
-//   Map<String, List<String>> iteneraries = {};
-
-//   @HiveField(1)
-//   final String id;
-
-//   @HiveField(2)
-//   final String tripId;
-
-//   Iteneraries(
-//       {required this.id, required this.iteneraries, required this.tripId});
-// }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/trip.dart';
+import 'package:wanderlust/screens/sub_screens/trip_details_page.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/saved_trips_components.dart.dart';
+import 'package:wanderlust/widgets/global/custom_appbar.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class SavedTrips extends StatefulWidget {
@@ -21,18 +23,7 @@ class _SavedTripsState extends State<SavedTrips> {
         final savedTrips = trips.where((trip) => trip.isFavorite).toList();
         return Scaffold(
             backgroundColor: primaryColor,
-            appBar: AppBar(
-              backgroundColor: primaryColor,
-              centerTitle: true,
-              title: const Text(
-                'Saved Trips',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            appBar: CustomAppbar(title: 'Saved Trips'),
             body: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -44,9 +35,18 @@ class _SavedTripsState extends State<SavedTrips> {
                                 trips.where((trip) => trip.isFavorite).length,
                             itemBuilder: (context, index) {
                               final trip = savedTrips[index];
-                              return SavedTripsComponent(
-                                trip: trip,
-                                index: index,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TripDetailsScreen(trip: trip)));
+                                },
+                                child: SavedTripsComponent(
+                                  trip: trip,
+                                  index: index,
+                                ),
                               );
                             })
                         : EmptyDialogue(

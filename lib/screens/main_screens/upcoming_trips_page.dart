@@ -9,6 +9,7 @@ import 'package:wanderlust/widgets/feature/delete_trip_dialogue.dart';
 import 'package:wanderlust/widgets/feature/edit_trip_dialogue.dart';
 import 'package:wanderlust/screens/sub_screens/trip_details_page.dart';
 import 'package:wanderlust/widgets/feature/upcoming_trip_tile.dart';
+import 'package:wanderlust/widgets/global/custom_appbar.dart';
 import 'package:wanderlust/widgets/global/custom_text.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
@@ -36,7 +37,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
     descriptionController = TextEditingController();
     travellorsController = TextEditingController();
     budgetController = TextEditingController();
-    // _tripService.getTripDetails();
 
     //fetch trip status
     _tripService.getTripDetails().then((_) {
@@ -56,10 +56,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
     super.dispose();
   }
 
-  // Future<void> _handleRefresh() async {
-  //   await Future.delayed(Duration(seconds: 3));
-  // }
-
   @override
   Widget build(BuildContext context) {
     // double screenHeight = MediaQuery.of(context).size.height;
@@ -72,18 +68,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             trips.where((trip) => trip.isCompleted == false).toList();
         return Scaffold(
           backgroundColor: primaryColor,
-          appBar: AppBar(
-            backgroundColor: primaryColor,
-            title: const Text(
-              'Your Trips',
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            centerTitle: true,
-          ),
+           appBar: CustomAppbar(title: 'Your Trips'),
           floatingActionButton: const FloatingButton(),
           body: upcommingTrips.isEmpty
               ? const EmptyDialogue(

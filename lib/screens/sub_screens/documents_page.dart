@@ -43,7 +43,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   Future<void> _pickandSaveImages() async {
     final List<XFile> images = await _picker.pickMultiImage();
-    if (images != null && images.isNotEmpty) {
+    if (images.isNotEmpty) {
       for (XFile image in images) {
         final newDocument = Documents(
           photos: [image.path],

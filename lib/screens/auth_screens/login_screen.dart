@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +8,7 @@ import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth_screens/signup_screen.dart';
+import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -17,6 +17,7 @@ class LogInScreen extends StatefulWidget {
   State<LogInScreen> createState() => _LogInScreenState();
 }
 
+// saving current login status
 Future<void> setLoginState(bool isLoggedIn) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool('isLoggedIn', isLoggedIn);
@@ -42,7 +43,9 @@ class _LogInScreenState extends State<LogInScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Lottie.asset('assets/images/loginanimation.json'),
+                  SizedBox(
+                      height: screenHeight * 0.4,
+                      child: Lottie.asset('assets/images/loginanimation.json')),
                   const Text(
                     'Welcome Back',
                     style: TextStyle(
@@ -66,22 +69,25 @@ class _LogInScreenState extends State<LogInScreen> {
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 110, vertical: 7)),
-                    onPressed: () {
-                      if (_formkeyTwo.currentState!.validate()) {
-                        checkUserLogedin();
-                      }
-                    },
-                    child: const Text(
-                      'Log in',
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                  SizedBox(
+                    width: screenWidth * 0.8,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 110, vertical: 7)),
+                      onPressed: () {
+                        if (_formkeyTwo.currentState!.validate()) {
+                          checkUserLogedin();
+                        }
+                      },
+                      child: const Text(
+                        'Log in',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
                     ),
                   ),
                   Row(
@@ -123,6 +129,7 @@ class _LogInScreenState extends State<LogInScreen> {
     await prefs.setString('loggedInUsername', loggedInUser.username);
   }
 
+  // check user is logged in
   Future<void> checkUserLogedin() async {
     List<User> users = await userService.getUserData();
     setState(() {});
@@ -140,11 +147,9 @@ class _LogInScreenState extends State<LogInScreen> {
           backgroundColor: Colors.blue,
         ));
         break;
+      } else {
+        customSnackBar(context, 'Username & Password doesnt exist');
       }
-      // else {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //       const SnackBar(content: Text('Username & Password doesnt exist')));
-      // }
     }
   }
 }

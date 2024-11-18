@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:wanderlust/utils/colors.dart';
+import 'package:wanderlust/widgets/global/custom_appbar.dart';
 
-class Privacy extends StatelessWidget {
-  const Privacy({super.key});
+class TermsConditions extends StatelessWidget {
+  const TermsConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        foregroundColor: white,
-        title: Text(
-          "Privacy & Policy",
-          style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppbar(title: 'Terms & Conditions'),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -28,7 +21,7 @@ class Privacy extends StatelessWidget {
               future: Future.delayed(Duration(milliseconds: 150)).then(
                 (value) {
                   return rootBundle
-                      .loadString('assets/images/privacy_policy.md');
+                      .loadString('assets/images/terms_conditions.md');
                 },
               ),
               builder: (context, snapshot) {

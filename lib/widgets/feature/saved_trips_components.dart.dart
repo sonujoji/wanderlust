@@ -81,8 +81,9 @@ class _SavedTripsComponentState extends State<SavedTripsComponent> {
                     },
                     likeBuilder: (isLiked) {
                       return Icon(
-                          isLiked ? Icons.bookmark : Icons.bookmark_border,
-                          color: isLiked ? Colors.red : Colors.white);
+                        isLiked ? Icons.bookmark : Icons.bookmark_border,
+                        color: isLiked ? Colors.red : Colors.white,
+                      );
                     },
                   ),
                 )

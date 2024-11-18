@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:wanderlust/models/user.dart';
 import 'package:wanderlust/screens/auth_screens/login_screen.dart';
-import 'package:wanderlust/widgets/feature/privacy_policy.dart';
+import 'package:wanderlust/screens/sub_screens/privacy_policy.dart';
 
-import 'package:wanderlust/screens/main_screens/profile_page.dart';
-import 'package:wanderlust/widgets/feature/terms_conditions.dart';
+import 'package:wanderlust/screens/sub_screens/terms_conditions.dart';
 import 'package:wanderlust/service/signup_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/global/custom_listtile.dart';
+import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
 
@@ -36,10 +36,24 @@ class _EditprofileTIleState extends State<EditprofileTIle> {
   @override
   void initState() {
     super.initState();
-    if (widget.currentUser != null) {
-      emailController.text = widget.currentUser!.email;
-      phoneController.text = widget.currentUser!.phone.toString();
+
+    emailController = TextEditingController(
+        text: widget.currentUser?.email ?? 'no email value');
+    phoneController = TextEditingController(
+        text: widget.currentUser?.phone.toString() ?? 'no phone value');
+    log('InitState - Email: ${emailController.text}, Phone: ${phoneController.text}');
+  }
+
+  @override
+  void didUpdateWidget(covariant EditprofileTIle oldWidget) {
+    if (widget.currentUser != oldWidget.currentUser) {
+      emailController.text = widget.currentUser?.email ?? 'No email value';
+      phoneController.text =
+          widget.currentUser?.phone.toString() ?? 'No phone value';
+
+      log('didUpdateWidget - Updated Email: ${emailController.text}, Phone: ${phoneController.text}');
     }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -113,30 +127,25 @@ class _EditprofileTIleState extends State<EditprofileTIle> {
                               if (widget.currentUser != null &&
                                   widget.currentUserIndex != null) {
                                 try {
-                                  final user = User(
-                                      username: widget.currentUser!.username,
-                                      email: emailController.text,
-                                      phone: int.parse(phoneController.text),
-                                      profileImage:
-                                          widget.currentUser!.profileImage,
-                                      password: widget.currentUser!.password);
-
-                                  log('Updated user profile');
+                                  widget.currentUser!.email =
+                                      emailController.text;
+                                  widget.currentUser!.phone =
+                                      int.parse(phoneController.text);
 
                                   await _userService.updateUser(
-                                      widget.currentUserIndex!, user);
+                                      widget.currentUserIndex!,
+                                      widget.currentUser!);
+
+                                  log('Updated user profile,  email: ${widget.currentUser!.email} phone: ${widget.currentUser!.phone}');
                                 } catch (e) {
                                   log('error while editing user details $e');
                                 }
-
                                 Navigator.pop(context);
                               } else {
                                 log('current user is null');
                               }
                             }
-                          }
-                          // setState(() {});
-                          ,
+                          },
                           child: const Text('Save',
                               style: TextStyle(color: Colors.white))),
                     ],
@@ -192,12 +201,7 @@ class LogoutTile extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => const LogInScreen()),
                                 (Route<dynamic> route) => false);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              backgroundColor: Colors.blue,
-                              content: Text('Logout successful!',
-                                  style: TextStyle()),
-                            ));
+                            customSnackBar(context, 'Logout successful!');
                           },
                           child: const Text(
                             'Ok',

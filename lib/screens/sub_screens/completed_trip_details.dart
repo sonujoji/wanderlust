@@ -42,7 +42,7 @@ class _CompletedTripDetailsState extends State<CompletedTripDetails> {
 
   Future<void> _pickandSaveImages() async {
     final List<XFile> images = await _picker.pickMultiImage();
-    if (images != null && images.isNotEmpty) {
+    if (images.isNotEmpty) {
       for (XFile image in images) {
         final memories = Memories(
           memories: [image.path],

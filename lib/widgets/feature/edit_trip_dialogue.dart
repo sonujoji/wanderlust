@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wanderlust/models/trip.dart';
-import 'package:wanderlust/screens/main_screens/upcoming_trips_page.dart';
 import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';

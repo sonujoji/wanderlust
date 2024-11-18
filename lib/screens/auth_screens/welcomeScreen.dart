@@ -37,13 +37,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       width: 40,
                     ),
                   ),
-                  SizedBox(width: screenWidth * 0.05),
+                  SizedBox(width: screenWidth * 0.01),
                   const Text(
                     'Roadmapper',
                     style: TextStyle(
                       fontSize: 34,
                       color: Colors.white,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
@@ -68,8 +68,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 80, vertical: 7)),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const SignUpScreen()));
                 },
                 child: const Text(
                   'Get Started ',

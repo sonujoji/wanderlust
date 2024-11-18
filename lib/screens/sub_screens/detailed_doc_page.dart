@@ -11,7 +11,7 @@ class DetailedDocView extends StatelessWidget {
   final String documentId;
   DetailedDocView(
       {super.key, required this.imagePath, required this.documentId});
-  DocService _docService = DocService();
+  final DocService _docService = DocService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

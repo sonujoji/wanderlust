@@ -61,7 +61,7 @@ class _BudgetPageState extends State<BudgetPage> {
     final groupedBudgets = _groupBudgetsByDate();
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final totalExpence =
+    final totalExpence = 
         _budgets.fold(0, (sum, item) => sum + item.expenseAmount);
     final remainingBudget = (widget.trip.budget - totalExpence).abs();
 
@@ -72,7 +72,7 @@ class _BudgetPageState extends State<BudgetPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Container(
-              // height: screenHeight * 0.20,
+              
               width: double.infinity,
               decoration: BoxDecoration(
                   color: grey, borderRadius: BorderRadius.circular(5)),
@@ -125,7 +125,7 @@ class _BudgetPageState extends State<BudgetPage> {
                           fontWeight: FontWeight.w500,
                         ),
                         CustomText(
-                          text: '₹${remainingBudget}',
+                          text: '₹$remainingBudget',
                           fontSize: 18,
                           color: blue,
                           fontWeight: FontWeight.w500,

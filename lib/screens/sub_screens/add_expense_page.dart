@@ -22,8 +22,6 @@ class _AddExpensePageState extends State<AddExpensePage> {
   late TextEditingController titleController;
   late TextEditingController expenseController;
   DateTime? selectedDate;
-  //List<Budget> budgets = [];
-  // var uuid = Uuid();
   @override
   void initState() {
     _budgetService.openBox();
@@ -39,7 +37,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
     _budgetService.closeBox();
     super.dispose();
   }
-
+  // select dates
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
@@ -55,7 +53,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
       });
     }
   }
-
+  // save expence
   Future<void> saveExpense() async {
     if (titleController.text.isNotEmpty &&
         expenseController.text.isNotEmpty &&
@@ -88,7 +86,8 @@ class _AddExpensePageState extends State<AddExpensePage> {
       builder: (context, value, child) {
         return Scaffold(
           backgroundColor: primaryColor,
-          appBar: AppBar(
+          appBar: 
+          AppBar(
             backgroundColor: primaryColor,
             leading: IconButton(
                 onPressed: () {

@@ -4,6 +4,7 @@ import 'package:wanderlust/service/trip_service.dart';
 import 'package:wanderlust/utils/colors.dart';
 import 'package:wanderlust/widgets/feature/completed_tile.dart';
 import 'package:wanderlust/screens/sub_screens/completed_trip_details.dart';
+import 'package:wanderlust/widgets/global/custom_appbar.dart';
 import 'package:wanderlust/widgets/global/empty_dialogue.dart';
 
 class CompletedTripsScreen extends StatefulWidget {
@@ -23,18 +24,7 @@ class _CompletedTripsScreenState extends State<CompletedTripsScreen> {
             trips.where((trip) => trip.isCompleted == true).toList();
         return Scaffold(
             backgroundColor: primaryColor,
-            appBar: AppBar(
-              backgroundColor: primaryColor,
-              centerTitle: true,
-              title: Text(
-                'Completed Trips',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            appBar: CustomAppbar(title: 'Completed Trips'),
             body: Padding(
               padding: EdgeInsets.all(15),
               child: completedTrips.isNotEmpty
@@ -47,14 +37,16 @@ class _CompletedTripsScreenState extends State<CompletedTripsScreen> {
                               await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => 
-                                          CompletedTripDetails(tripId: trip.id.toString(),trip: trip,)));
+                                      builder: (context) =>
+                                          CompletedTripDetails(
+                                            tripId: trip.id.toString(),
+                                            trip: trip,
+                                          )));
                             },
                             child:
                                 CompletedTripsTile(trip: trip, index: index));
                       })
                   : EmptyDialogue(
-                  
                       imagePath: 'assets/images/Traveling-rafiki.png',
                       text: "You haven't completed any trips "),
             ));

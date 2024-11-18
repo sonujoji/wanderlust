@@ -22,7 +22,7 @@ class AddIteneraryPage extends StatefulWidget {
 }
 
 class _AddIteneraryPageState extends State<AddIteneraryPage> {
-  TripService _tripService = TripService();
+  final TripService _tripService = TripService();
   TextEditingController locationController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   @override
