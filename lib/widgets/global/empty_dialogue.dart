@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // used for showing no details added
@@ -14,14 +15,27 @@ class EmptyDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final double horizontalPadding = screenWidth * 0.3;
+    final double topPaddingValue = topPadding * 0.3;
+    final double imageHeight = screenHeight * 0.3;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(
-                top: topPadding, right: 40, left: 40, bottom: 10),
-            child: Image.asset(imagePath),
+                top: kIsWeb ? topPaddingValue : topPadding,
+                right: kIsWeb ? horizontalPadding : 40,
+                left: kIsWeb ? horizontalPadding : 40,
+                bottom: kIsWeb ? topPaddingValue : 10),
+            child: Image.asset(
+              imagePath,
+              height: imageHeight,
+              fit: BoxFit.contain,
+            ),
           ),
           const SizedBox(height: 10),
           Text(

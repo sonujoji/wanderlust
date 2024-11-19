@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanderlust/models/trip.dart';
@@ -8,6 +10,7 @@ import 'package:wanderlust/widgets/feature/bottom_navbar/bottom_navbar.dart';
 import 'package:wanderlust/widgets/global/custom_snackbar.dart';
 import 'package:wanderlust/widgets/global/custom_textfield.dart';
 import 'package:wanderlust/service/trip_service.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AddTripPage extends StatefulWidget {
   const AddTripPage({super.key});
@@ -308,7 +311,7 @@ class _AddTripPageState extends State<AddTripPage> {
     DateTimeRange? newDateRange = await showDateRangePicker(
       context: context,
       initialDateRange: dateRange,
-       firstDate: DateTime(2024),
+      firstDate: DateTime(2024),
       // firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     );
@@ -327,4 +330,5 @@ class _AddTripPageState extends State<AddTripPage> {
     }
     return null;
   }
+
 }

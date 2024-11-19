@@ -42,7 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 1));
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    String isLoggedInString = prefs.getString('isLoggedIn') ?? 'false';
+    bool isLoggedIn = isLoggedInString == 'true';
 
     Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) =>

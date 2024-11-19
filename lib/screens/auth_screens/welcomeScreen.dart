@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wanderlust/screens/auth_screens/login_screen.dart';
@@ -25,7 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight * 0.1,
+                height: kIsWeb ? screenHeight * 0.05 : screenHeight * 0.1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

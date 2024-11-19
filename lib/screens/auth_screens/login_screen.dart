@@ -18,9 +18,9 @@ class LogInScreen extends StatefulWidget {
 }
 
 // saving current login status
-Future<void> setLoginState(bool isLoggedIn) async {
+Future<void> setLoginState(bool isLoggedIn) async { 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isLoggedIn', isLoggedIn);
+  await prefs.setString('isLoggedIn', isLoggedIn.toString());
 }
 
 class _LogInScreenState extends State<LogInScreen> {

@@ -58,8 +58,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // double screenHeight = MediaQuery.of(context).size.height;
-    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return ValueListenableBuilder(
       valueListenable: tripListNotifier,
