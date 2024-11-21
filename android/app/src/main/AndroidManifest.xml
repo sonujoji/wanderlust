@@ -1,9 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wanderlust" >
-     
-     <!-- permission for accesing contacts -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    package="com.example.wanderlust" > 
 
     <application
         android:label="Roadmapper"

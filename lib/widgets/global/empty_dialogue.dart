@@ -31,10 +31,12 @@ class EmptyDialogue extends StatelessWidget {
                 right: kIsWeb ? horizontalPadding : 40,
                 left: kIsWeb ? horizontalPadding : 40,
                 bottom: kIsWeb ? topPaddingValue : 10),
-            child: Image.asset(
-              imagePath,
-              height: imageHeight,
-              fit: BoxFit.contain,
+            child: Center(
+              child: Image.asset(
+                imagePath,
+                height: imageHeight,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           const SizedBox(height: 10),
